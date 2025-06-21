@@ -4,8 +4,22 @@
     box-sizing: border-box;
   }
 
+  @font-face {
+    font-family: 'Helvetica-Light';
+    src: url('./HelveticaNeueLight.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Helvetica-Regular';
+    src: url('./HelveticaNeueMedium.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Helvetica-Light', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     background-color: #1a1a1a;
     color: #e0e0e0;
     line-height: 1.6;
@@ -53,7 +67,7 @@
 
   .about p {
     font-size: 16px;
-    color: #b0b0b0;
+    color: #9b9b9b;
     margin-bottom: 24px;
     line-height: 1.7;
   }
