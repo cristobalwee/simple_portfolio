@@ -19,9 +19,9 @@
 
       <main class="main">
         <section class="about">
-          <p>I'm Peruvian-born interaction engineer with a passion for minimalist styles and delightful experiences. I believe design problems are best solved with a technical mindset – contributing at the intersect of design and development is crucial in the creation of interfaces that are truly enjoyable and seamless to use. In a rapidly changing landscape of LLM-driven programming, I think design engineers are uniquely positioned to unilaterally effect impactful change on a product's end user experience.</p>
+          <p>I'm a Peruvian-born interaction engineer with a passion for minimalist styles and delightful experiences. I'm currently working as a Lead UX Engineer on the Design Foundations team at <a href="https://www.godaddy.com/" class="link">GoDaddy</a>, helping evolve the company's design system while providing inter-organizational interaction engineering support. Outside of work, I'm reading <a href="https://www.goodreads.com/book/show/62069739-when-we-cease-to-understand-the-world" class="link" target="_blank" rel="noreferrer">When We Cease to Understand the World</a> by Benjamin Labatut, and playing <a href="https://open.spotify.com/album/3iKxcGgS71n7ND8I2A3CF5?si=UqEgxU9ZSK-kC2SHAjlPkw" class="link" target="_blank" rel="noreferrer">Egotrip</a> by John Michel and Anthony James on repeat.</p>
           
-          <p>I'm currently working as a Lead UX Engineer on the Design Foundations team at <a href="https://www.godaddy.com/" class="link">GoDaddy</a>, helping evolve the company's design system while providing inter-organizational interaction engineering support. Outside of work, I'm reading <a href="https://www.goodreads.com/book/show/62069739-when-we-cease-to-understand-the-world" class="link" target="_blank" rel="noreferrer">When We Cease to Understand the World</a> by Benjamin Labatut, and playing <a href="https://open.spotify.com/album/3iKxcGgS71n7ND8I2A3CF5?si=UqEgxU9ZSK-kC2SHAjlPkw" class="link" target="_blank" rel="noreferrer">Egotrip</a> by John Michel and Anthony James on repeat.</p>
+          <p>I believe design problems are best solved with a technical mindset – contributing at the intersect of design and development is crucial in the creation of interfaces that are truly enjoyable and seamless to use. In a rapidly changing landscape of LLM-driven programming, I think design engineers are uniquely positioned to unilaterally effect impactful change on a product's end user experience.</p>
         </section>
 
         <section class="projects">
@@ -128,7 +128,7 @@
             hour12: true
           });
           
-          this.timeElement.innerHTML = `${this.clockEmoji} ${timeString}`;
+          this.timeElement.innerHTML = `${this.clockEmoji} <p>${timeString}</p>`;
         }
 
         async fetchWeather() {
@@ -149,7 +149,7 @@
           const temp = Math.round(data.main.temp);
           const weatherId = data.weather[0].id;
           
-          this.weatherElement.innerHTML = `${this.sunEmoji} ${temp}°`;
+          this.weatherElement.innerHTML = `${this.sunEmoji} <p>${temp}°F</p>`;
         }
 
         setWeatherFallback() {
@@ -164,7 +164,7 @@
             temp = Math.floor(Math.random() * 15) + 60; // 60-75°F typical Phoenix nighttime
           }
           
-          this.weatherElement.innerHTML = `${this.sunEmoji} ${temp}°`;
+          this.weatherElement.innerHTML = `${this.sunEmoji} <p>${temp}°F</p>°`;
         }
       }
 

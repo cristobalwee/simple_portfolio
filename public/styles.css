@@ -66,10 +66,10 @@
   }
 
   .about p {
-    font-size: 16px;
+    font-size: 18px;
     color: #9b9b9b;
     margin-bottom: 24px;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   .about p:last-child {
@@ -184,7 +184,13 @@
   .time {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
+  }
+
+  .weather p,
+  .time p {
+    padding-top: 3px;
   }
 
   /* Responsive Design */
@@ -192,29 +198,14 @@
     .container {
       padding: 40px;
     }
-    
-    .header {
-      margin-bottom: 60px;
-    }
 
-    
-    .about {
-      margin-bottom: 60px;
-    }
-    
-    .projects {
-      margin-bottom: 60px;
+    .about p {
+      line-height: 1.5;
     }
     
     .project-card {
       gap: 48px;
       padding: 20px;
-    }
-    
-    .footer {
-      flex-direction: column;
-      gap: 24px;
-      align-items: flex-start;
     }
     
     .footer-links {
@@ -234,6 +225,12 @@
     .project-card {
       gap: 40px;
       padding: 20px;
+    }
+
+    .footer {
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
     }
     
     .footer-links {
