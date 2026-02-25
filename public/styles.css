@@ -93,7 +93,7 @@ body.loaded {
 }
 
 .about {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .about p {
@@ -153,7 +153,7 @@ body.loaded {
 .project-card {
   display: flex;
   flex-direction: column;
-  gap: 84px;
+  gap: 64px;
   padding: 24px;
   background-color: #242424;
   transition: background-color 0.4s ease;
@@ -175,7 +175,7 @@ body.loaded {
 
 .project-year {
   font-size: 14px;
-  color: #666666;
+  color: #989898;
   font-weight: 400;
   padding-top: 2px;
 }
@@ -196,8 +196,8 @@ body.loaded {
 }
 
 .enjoying-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 36px;
   margin-top: 28px;
 }
@@ -270,6 +270,59 @@ body.loaded {
 }
 
 .enjoying-subtitle {
+  font-size: 14px;
+  color: #888888;
+  font-weight: 400;
+}
+
+/* Today section (duplicated from currently-enjoying so it can be styled independently) */
+.today {
+  margin-bottom: 80px;
+}
+
+.today-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 28px;
+}
+
+.today-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
+  margin: -16px;
+}
+
+.today-link:hover {
+  background-color: #242424;
+}
+
+.today-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.today-content {
+  flex: 1;
+}
+
+.today-item .arrow-icon {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.today-title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.today-subtitle {
   font-size: 14px;
   color: #888888;
   font-weight: 400;
@@ -399,6 +452,14 @@ body.loaded {
   animation-delay: 1.5s;
 }
 
+.animate-delay-14 {
+  animation-delay: 1.6s;
+}
+
+.animate-delay-15 {
+  animation-delay: 1.7s;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
@@ -414,6 +475,10 @@ body.loaded {
     padding: 20px;
   }
 
+  .enjoying-grid {
+    grid-template-columns: 1fr;
+  }
+
   .arrow-icon {
     display: none;
   }
@@ -426,10 +491,6 @@ body.loaded {
 @media (max-width: 480px) {
   .container {
     padding: 32px;
-  }
-
-  .project-year {
-    font-size: 12px;
   }
 
   .project-card {
