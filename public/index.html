@@ -49,15 +49,15 @@
 
       <main class="main">
         <section class="about">
-          <p class="animate-fade-in-up animate-delay-2">
+          <p id="bio">
             I'm a Peruvian-born design engineer with a passion for
-            minimalist styles and enjoyable experiences. I'm currently leading the UX Chapter at 
+            craft, taste, and enjoyability. I'm currently leading the UX Chapter at 
             <a
               href="https://www.centaurihs.com/"
               class="link"
               target="_blank"
               rel="noreferrer"
-              >Centauri Health</a
+              >Centauri</a
             >, architecting a new design system and crafting interfaces that simplify the healthcare data experience with a team of designers. Previously, I was a Lead UX Engineer on the Design Foundations team at
             <a
               href="https://www.godaddy.com/"
@@ -66,6 +66,7 @@
               rel="noreferrer"
               >GoDaddy</a
             >.
+          </p>
         </section>
 
         <section class="projects">
@@ -83,7 +84,7 @@
                 <div class="project-year">UX Chapter Lead</div>
               </div>
               <div class="project-content">
-                <h3 class="project-title">Centauri Health</h3>
+                <h3 class="project-title">Centauri</h3>
               </div>
             </a>
 
@@ -97,7 +98,7 @@
                 <div class="project-year">Founder, Designer/Dev</div>
               </div>
               <div class="project-content">
-                <h3 class="project-title">Ray.</h3>
+                <h3 class="project-title">Ray</h3>
               </div>
             </a>
 
@@ -372,8 +373,59 @@
     </div>
 
     <script>
-      // Simple fade-in animation on page load
+      function animateBioLines() {
+        const bio = document.getElementById("bio");
+        if (!bio) return;
+
+        const walker = document.createTreeWalker(bio, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach((node) => {
+          const parts = node.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          for (const part of parts) {
+            if (!part) continue;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(" "));
+            } else {
+              const span = document.createElement("span");
+              span.className = "bio-word";
+              span.textContent = part;
+              frag.appendChild(span);
+            }
+          }
+          node.parentNode.replaceChild(frag, node);
+        });
+
+        const words = bio.querySelectorAll(".bio-word");
+        const BASE_DELAY = 0.4;
+        const LINE_STAGGER = 0.06;
+        let lastTop = -Infinity;
+        let lineIndex = -1;
+
+        words.forEach((span) => {
+          const top = span.getBoundingClientRect().top;
+          if (Math.abs(top - lastTop) > 2) {
+            lineIndex++;
+            lastTop = top;
+          }
+          span.style.animationDelay =
+            BASE_DELAY + lineIndex * LINE_STAGGER + "s";
+        });
+
+        const totalLinesOffset = lineIndex * LINE_STAGGER;
+        document.querySelectorAll(".animate-fade-in-up").forEach((el) => {
+          const match = el.className.match(/animate-delay-(\d+)/);
+          if (!match) return;
+          const n = parseInt(match[1], 10);
+          if (n < 3) return;
+          el.style.animationDelay = 0.2 + n * 0.1 + totalLinesOffset + "s";
+        });
+      }
+
       window.addEventListener("load", function () {
+        animateBioLines();
         document.body.classList.add("loaded");
       });
 

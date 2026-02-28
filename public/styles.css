@@ -97,7 +97,7 @@ body.loaded {
 }
 
 .about p {
-  font-size: 18px;
+  font-size: 16px;
   color: #9b9b9b;
   margin-bottom: 24px;
   line-height: 1.6;
@@ -116,13 +116,17 @@ body.loaded {
 
 .link {
   color: #ffffff;
+  text-decoration: none;
+}
+
+.link .bio-word {
   text-decoration: underline;
   text-decoration-color: #666666;
   text-underline-offset: 3px;
   transition: text-decoration-color 0.2s ease;
 }
 
-.link:hover {
+.link:hover .bio-word {
   text-decoration-color: #ffffff;
 }
 
@@ -154,7 +158,7 @@ body.loaded {
   display: flex;
   flex-direction: column;
   gap: 64px;
-  padding: 24px;
+  padding: 20px;
   background-color: #242424;
   transition: background-color 0.4s ease;
   cursor: alias;
@@ -186,7 +190,7 @@ body.loaded {
 }
 
 .project-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   color: #ffffff;
 }
@@ -266,7 +270,7 @@ body.loaded {
 }
 
 .enjoying-title.writing-title {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .enjoying-subtitle {
@@ -316,7 +320,7 @@ body.loaded {
 }
 
 .today-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   color: #ffffff;
   margin-bottom: 4px;
@@ -393,71 +397,18 @@ body.loaded {
   }
 }
 
+.bio-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s cubic-bezier(0, 0, 0.14, 1) forwards;
+}
+
 /* Animation Classes */
 .animate-fade-in-up {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s cubic-bezier(0, 0, 0.14, 1) forwards 0.2s;
-}
-
-.animate-delay-1 {
-  animation-delay: 0.3s;
-}
-
-.animate-delay-2 {
-  animation-delay: 0.4s;
-}
-
-.animate-delay-3 {
-  animation-delay: 0.5s;
-}
-
-.animate-delay-4 {
-  animation-delay: 0.6s;
-}
-
-.animate-delay-5 {
-  animation-delay: 0.7s;
-}
-
-.animate-delay-6 {
-  animation-delay: 0.8s;
-}
-
-.animate-delay-7 {
-  animation-delay: 0.9s;
-}
-
-.animate-delay-8 {
-  animation-delay: 1s;
-}
-
-.animate-delay-9 {
-  animation-delay: 1.1s;
-}
-
-.animate-delay-10 {
-  animation-delay: 1.2s;
-}
-
-.animate-delay-11 {
-  animation-delay: 1.3s;
-}
-
-.animate-delay-12 {
-  animation-delay: 1.4s;
-}
-
-.animate-delay-13 {
-  animation-delay: 1.5s;
-}
-
-.animate-delay-14 {
-  animation-delay: 1.6s;
-}
-
-.animate-delay-15 {
-  animation-delay: 1.7s;
 }
 
 /* Responsive Design */
@@ -466,21 +417,12 @@ body.loaded {
     padding: 40px;
   }
 
-  .about p {
-    line-height: 1.5;
-  }
-
   .project-card {
     gap: 48px;
-    padding: 20px;
   }
 
   .enjoying-grid {
     grid-template-columns: 1fr;
-  }
-
-  .arrow-icon {
-    display: none;
   }
 
   .footer-links {
@@ -495,7 +437,6 @@ body.loaded {
 
   .project-card {
     gap: 40px;
-    padding: 20px;
   }
 
   .footer {
