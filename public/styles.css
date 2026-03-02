@@ -157,9 +157,9 @@ body.loaded {
 .project-card {
   display: flex;
   flex-direction: column;
-  gap: 64px;
-  padding: 20px;
   background-color: #242424;
+  border-radius: 12px;
+  overflow: hidden;
   transition: background-color 0.4s ease;
   cursor: alias;
   flex: 1 1;
@@ -168,25 +168,43 @@ body.loaded {
 }
 
 .project-card:hover {
-  background-color: #2a2a2a;
+  background-color: #2c2c2c;
 }
 
-.project-data {
+.project-swatch {
+  flex-shrink: 0;
+  height: 84px;
+  margin: 24px 28px 0;
+  transition: transform 0.4s cubic-bezier(0.17,0.84,0.44,1);;
+}
+
+.project-swatch-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-top: 16px;
+  margin-left: 16px;
+}
+
+.project-card:hover .project-swatch {
+  transform: translateY(-6px);
+}
+
+.project-info {
+  background-color: #2F2F2F;
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  margin-top: -16px;
 }
 
 .project-year {
   font-size: 14px;
   color: #989898;
   font-weight: 400;
-  padding-top: 2px;
-}
-
-.project-content {
-  display: flex;
-  flex-direction: column;
 }
 
 .project-title {
@@ -228,16 +246,19 @@ body.loaded {
 .enjoying-thumbnail {
   flex-shrink: 0;
   margin-left: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.thumbnail-image {
-  width: 56px;
-  height: 56px;
-  border-radius: 4px;
-  object-fit: cover;
+.enjoying-thumbnail-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #C2C2C2;
+  border-radius: 50%;
 }
 
 .book-cover {
@@ -417,10 +438,6 @@ body.loaded {
     padding: 40px;
   }
 
-  .project-card {
-    gap: 48px;
-  }
-
   .enjoying-grid {
     grid-template-columns: 1fr;
   }
@@ -433,10 +450,6 @@ body.loaded {
 @media (max-width: 480px) {
   .container {
     padding: 32px;
-  }
-
-  .project-card {
-    gap: 40px;
   }
 
   .footer {
