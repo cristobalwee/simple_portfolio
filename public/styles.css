@@ -157,8 +157,8 @@ body.loaded {
 .project-card {
   display: flex;
   flex-direction: column;
-  background-color: #242424;
-  border-radius: 12px;
+  background-color: #1f1f1f;
+  border-radius: 8px;
   overflow: hidden;
   transition: background-color 0.4s ease;
   cursor: alias;
@@ -168,7 +168,7 @@ body.loaded {
 }
 
 .project-card:hover {
-  background-color: #2c2c2c;
+  background-color: #222;
 }
 
 .project-swatch {
@@ -187,11 +187,11 @@ body.loaded {
 }
 
 .project-card:hover .project-swatch {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
 .project-info {
-  background-color: #2F2F2F;
+  background-color: #242424;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -444,6 +444,14 @@ body.loaded {
 
   .footer-links {
     gap: 24px;
+  }
+
+  .project-swatch {
+    margin: 24px 48px 0;
+  }
+
+  .project-info {
+    gap: 4px;
   }
 }
 
