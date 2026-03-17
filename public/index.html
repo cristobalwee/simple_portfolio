@@ -74,39 +74,70 @@
             Building
           </h2>
           <div class="projects-table">
-            <a
-              href="https://www.centaurihs.com/"
-              class="project-row animate-fade-in-up animate-delay-4"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img class="project-swatch" src="centauri.png" alt="Centauri" />
-              <span class="project-title">Centauri</span>
-              <span class="project-year">UX Chapter Lead</span>
-              <span class="project-year mobile-hide">2025 – now</span>
-            </a>
-            <a
-              href="https://readray.app/"
-              class="project-row animate-fade-in-up animate-delay-5"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img class="project-swatch" src="ray.png" alt="Ray" />
-              <span class="project-title">Ray</span>
-              <span class="project-year">Founder, Designer/Dev</span>
-              <span class="project-year mobile-hide">2025 – now</span>
-            </a>
-            <a
-              href="https://www.trackitlabs.com/"
-              class="project-row animate-fade-in-up animate-delay-6"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img class="project-swatch" src="trackit.png" alt="TrackIt Labs" />
-              <span class="project-title">TrackIt Labs</span>
-              <span class="project-year">Sr. UX Architect (part-time)</span>
-              <span class="project-year mobile-hide">2024 – now</span>
-            </a>
+            <div class="project-item animate-fade-in-up animate-delay-4">
+              <div class="project-row">
+                <img class="project-swatch" src="centauri.png" alt="Centauri" />
+                <span class="project-title">Centauri</span>
+                <span class="project-year">UX Chapter Lead</span>
+                <span class="project-year mobile-hide">2025 – now</span>
+              </div>
+              <div class="project-expand">
+                <div class="project-expand-inner">
+                  <p class="project-description">Leading the UX org for Centauri's flagship Clarion platform, designing healthcare interfaces for patients, clinicians, and insurance coders across thousands of users.</p>
+                  <div class="project-locked">
+                    <div class="project-locked-icon">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 8.33h-.83V6.67a4.17 4.17 0 0 0-8.34 0v1.66H5a1.67 1.67 0 0 0-1.67 1.67v6.67A1.67 1.67 0 0 0 5 18.33h10a1.67 1.67 0 0 0 1.67-1.66V10A1.67 1.67 0 0 0 15 8.33Zm-5 5.84a1.67 1.67 0 1 1 0-3.34 1.67 1.67 0 0 1 0 3.34ZM12.5 8.33h-5V6.67a2.5 2.5 0 0 1 5 0v1.66Z" fill="#ffffff"/>
+                      </svg>
+                    </div>
+                    <p class="project-locked-text">This project's artifacts are not publicly viewable.</p>
+                    <a href="mailto:hellothere@cristobalgrana.me" class="project-locked-button">Contact me to view</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-item animate-fade-in-up animate-delay-5">
+              <div class="project-row">
+                <img class="project-swatch" src="ray.png" alt="Ray" />
+                <span class="project-title">Ray</span>
+                <span class="project-year">Founder, Designer/Dev</span>
+                <span class="project-year mobile-hide">2025 – now</span>
+              </div>
+              <div class="project-expand">
+                <div class="project-expand-inner">
+                  <p class="project-description">Ray is a habit-forming daily reading app designed for thoughtful reflection in a world of distraction. Unlock a beautifully curated library of over 1,000 poems, short stories, and essays—no accounts, no subscriptions, no hidden costs.</p>
+                  <div class="project-carousel">
+                    <div class="project-carousel-track">
+                      <img class="project-carousel-image" src="ray-1.png" alt="Ray screenshot 1" />
+                      <img class="project-carousel-image" src="ray-2.png" alt="Ray screenshot 2" />
+                      <img class="project-carousel-image" src="ray-3.png" alt="Ray screenshot 3" />
+                      <img class="project-carousel-image" src="ray-4.png" alt="Ray screenshot 4" />
+                    </div>
+                  </div>
+                  <a href="https://readray.app/" class="project-see-more" target="_blank" rel="noreferrer">See more</a>
+                </div>
+              </div>
+            </div>
+            <div class="project-item animate-fade-in-up animate-delay-6">
+              <div class="project-row">
+                <img class="project-swatch" src="trackit.png" alt="TrackIt Labs" />
+                <span class="project-title">TrackIt Labs</span>
+                <span class="project-year">Sr. UX Architect (part-time)</span>
+                <span class="project-year mobile-hide">2024 – now</span>
+              </div>
+              <div class="project-expand">
+                <div class="project-expand-inner">
+                  <p class="project-description">Principal design system architect and product designer for Trackit's flagship and Academy segments.</p>
+                  <div class="project-carousel">
+                    <div class="project-carousel-track">
+                      <img class="project-carousel-image" src="trackit-1.png" alt="TrackIt screenshot 1" />
+                      <img class="project-carousel-image" src="trackit-2.png" alt="TrackIt screenshot 2" />
+                      <img class="project-carousel-image" src="trackit-3.png" alt="TrackIt screenshot 3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -398,8 +429,52 @@
         });
       }
 
+      function initProjectAccordion() {
+        const items = document.querySelectorAll(".project-item");
+
+        items.forEach((item) => {
+          const row = item.querySelector(".project-row");
+          row.addEventListener("click", () => {
+            const isOpen = item.classList.contains("project-item--open");
+
+            // Close all items
+            items.forEach((i) => i.classList.remove("project-item--open"));
+
+            // Open clicked item if it wasn't already open
+            if (!isOpen) {
+              item.classList.add("project-item--open");
+            }
+          });
+
+          // Carousel scroll detection for edge blurs
+          const carousel = item.querySelector(".project-carousel");
+          const track = item.querySelector(".project-carousel-track");
+          if (track && carousel) {
+            const updateBlurs = () => {
+              const scrollLeft = track.scrollLeft;
+              const maxScroll = track.scrollWidth - track.clientWidth;
+
+              // Left blur: fades in as user scrolls away from start
+              carousel.style.setProperty(
+                "--left-opacity",
+                scrollLeft > 8 ? 1 : 0
+              );
+
+              // Right blur: fades out when near the end
+              carousel.style.setProperty(
+                "--right-opacity",
+                maxScroll - scrollLeft < 8 ? 0 : 1
+              );
+            };
+
+            track.addEventListener("scroll", updateBlurs);
+          }
+        });
+      }
+
       window.addEventListener("load", function () {
         animateBioLines();
+        initProjectAccordion();
         document.body.classList.add("loaded");
       });
 
