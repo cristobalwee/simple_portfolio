@@ -346,8 +346,8 @@ img.project-carousel-image {
 }
 
 .project-swatch {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
   border-radius: 4px;
   background-color: #292929;
