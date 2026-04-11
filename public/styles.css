@@ -265,7 +265,6 @@ body.loaded {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  overscroll-behavior: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-bottom: 4px;
