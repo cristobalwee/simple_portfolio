@@ -14,16 +14,10 @@
 
 @font-face {
   font-family: "Helvetica-Light";
-  src: url("./HelveticaNeueLight.woff") format("woff");
+  src: url("./HelveticaNeueLight.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-}
-
-@font-face {
-  font-family: "Helvetica-Regular";
-  src: url("./HelveticaNeueMedium.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+  font-display: swap;
 }
 
 body {
