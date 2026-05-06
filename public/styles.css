@@ -412,11 +412,16 @@ img.project-swatch {
   line-height: 1.4;
 }
 
+.project-subtitle,
 .project-year {
   font-size: 14px;
   color: #989898;
   font-weight: 400;
   line-height: 1.4;
+}
+
+.project-year {
+  text-align: right;
 }
 
 .currently-enjoying, .writing {
@@ -722,7 +727,7 @@ img.project-swatch {
     display: none;
   }
 
-  .project-year {
+  .project-subtitle {
     text-align: right;
   }
 }
