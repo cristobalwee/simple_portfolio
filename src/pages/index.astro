@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectItem from "../components/ProjectItem.astro";
+import EnjoyingItem from "../components/EnjoyingItem.astro";
+import TodayItem from "../components/TodayItem.astro";
+---
+
+<BaseLayout>
+  <header class="header">
+    <h1 class="name animate-fade-in-up">Cristobal Graña Samanez</h1>
+    <p class="title animate-fade-in-up animate-delay-1">
+      Design Technologist, interaction engineer
+    </p>
+  </header>
+
+  <main class="main">
+    <section class="about">
+      <p id="bio">
+        I'm a Peruvian-born designer and engineer with a passion for
+        <a
+          href="https://linear.app/now/why-is-quality-so-rare"
+          class="link"
+          target="_blank"
+          rel="noreferrer">craft</a
+        > and enjoyability. I like to deliver products with a high level of care, and have a strong interest in solving design problems with a technical mindset.<br /><br />
+        I'm currently leading all things UX at
+        <a
+          href="https://www.centaurihs.com/"
+          class="link"
+          target="_blank"
+          rel="noreferrer">Centauri</a
+        >, architecting a new design system and building interfaces that simplify the healthcare data experience. Previously, I was a Lead UX Engineer on the Design Foundations team at
+        <a
+          href="https://www.godaddy.com/"
+          class="link"
+          target="_blank"
+          rel="noreferrer">GoDaddy</a
+        >.
+      </p>
+    </section>
+
+    <section class="projects">
+      <h2 class="section-title animate-fade-in-up animate-delay-3">Building</h2>
+      <div class="projects-table">
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-4"
+          swatch="/trellis.png"
+          swatchAlt="Trellis logo"
+          title="Trellis"
+          subtitle="Website"
+          year="2026"
+          description="A design system foundation generator, transforming brand inputs into accessible color palettes, typography ramps, and a robust, framework-agnostic token architecture."
+          images={[
+            { src: "/trellis-1.webp", alt: "Trellis homescreen", width: 945, height: 720 },
+            { src: "/trellis-2.webp", alt: "Trellis generator", width: 945, height: 720 },
+            { src: "/trellis-3.webp", alt: "Trellis component preview", width: 945, height: 720 },
+          ]}
+          seeMoreUrl="https://trellisdesign.io/"
+        />
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-5"
+          swatch="/tastify.png"
+          swatchAlt="Tastify logo"
+          title="Tastify"
+          subtitle="TypeScript Toolkit"
+          year="2026"
+          description="An open-source dev toolkit for displaying spotify listening habits on webapps, complete with themable UI components and pre-built OAuth serverless functions."
+          images={[
+            { src: "/tastify-1.webp", alt: "Tastify homescreen, dark mode", width: 945, height: 720 },
+            { src: "/tastify-2.webp", alt: "Tastify homescreen, light mode", width: 945, height: 720 },
+          ]}
+          seeMoreUrl="https://tastify.dev/"
+        />
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-6"
+          swatch="/ray.png"
+          swatchAlt="Ray logo"
+          title="Ray"
+          subtitle="iOS App"
+          year="2025"
+          description="Ray is a habit-forming daily reading app designed for thoughtful reflection in a world of distraction. Unlock a beautifully curated library of over 1,000 poems, short stories, and essays; no accounts, no subscriptions, no hidden costs."
+          images={[
+            { src: "/ray-2.webp", alt: "Ray mobile screens: home, reading, and reading detail", width: 1263, height: 792 },
+            { src: "/ray-1.webp", alt: "Ray website", width: 945, height: 720 },
+            { src: "/ray-3.webp", alt: "Ray mobile screens: discover and vault", width: 918, height: 792 },
+            { src: "/ray-4.webp", alt: "Ray promotional materials", width: 1338, height: 720 },
+          ]}
+          seeMoreUrl="https://readray.app/"
+        />
+      </div>
+    </section>
+
+    <section class="currently-enjoying">
+      <h2 class="section-title animate-fade-in-up animate-delay-7">Enjoying</h2>
+      <div class="enjoying-grid">
+        <EnjoyingItem
+          delayClass="animate-fade-in-up animate-delay-8"
+          href="https://open.spotify.com/album/6wymdowW8HbQ4H3nVs93Hj?si=6bFdAHMtTceanuesZBtGvA"
+          thumbnail="/maruja.webp"
+          thumbnailAlt="Pain to Power"
+          title="Pain to Power"
+          subtitle="By Maruja"
+        />
+        <EnjoyingItem
+          delayClass="animate-fade-in-up animate-delay-9"
+          href="https://open.spotify.com/album/0eeXb23yMW6EaIgm63xxPC?si=CtKOmJ5JRI296lktd3rlyQ"
+          thumbnail="/geese.webp"
+          thumbnailAlt="Getting Killed"
+          title="Getting Killed"
+          subtitle="By Geese"
+        />
+        <EnjoyingItem
+          delayClass="animate-fade-in-up animate-delay-10"
+          href="https://open.spotify.com/album/6xuXmpSyh7WqIct3bvsSfg?si=-7tep3CoQHCoQy7vS_nsjg"
+          thumbnail="/bpm.webp"
+          thumbnailAlt="The BPM"
+          title="The BPM"
+          subtitle="By Sudan Archives"
+        />
+      </div>
+    </section>
+
+    <section class="today">
+      <h2 class="section-title animate-fade-in-up animate-delay-9">Projects</h2>
+      <div class="today-grid">
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-10"
+          href="https://apps.apple.com/us/app/beat-the-box-card-game/id6746703360?platform=iphone"
+          title="Beat the Box"
+          subtitle="iOS App · 2025"
+        />
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-11"
+          href="https://bonnobartending.com"
+          title="Bonno Bartending"
+          subtitle="Website · 2024"
+        />
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-12"
+          href="https://apps.apple.com/us/app/perfect-roaster/id6664058919?platform=iphone"
+          title="Perfect Roaster"
+          subtitle="Mobile App · 2024"
+        />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+interface Props {
+  href: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+  title: string;
+  subtitle: string;
+  delayClass: string;
+}
+
+const { href, thumbnail, thumbnailAlt, title, subtitle, delayClass } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noreferrer"
+  class={`enjoying-link ${delayClass}`}
+>
+  <div class="enjoying-item">
+    <img
+      class="enjoying-thumbnail"
+      src={thumbnail}
+      alt={thumbnailAlt}
+      width="96"
+      height="96"
+      loading="lazy"
+    />
+    <div class="enjoying-content">
+      <h3 class="enjoying-title">{title}</h3>
+      <p class="enjoying-subtitle">{subtitle}</p>
+    </div>
+  </div>
+</a>

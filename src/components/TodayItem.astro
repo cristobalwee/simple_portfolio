@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  subtitle: string;
+  delayClass: string;
+}
+
+const { href, title, subtitle, delayClass } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noreferrer" class={`today-link ${delayClass}`}>
+  <div class="today-item">
+    <div class="today-content">
+      <h3 class="today-title">{title}</h3>
+      <p class="today-subtitle">{subtitle}</p>
+    </div>
+    <svg
+      class="arrow-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.5 12.5L12.5 3.5M12.5 3.5H4M12.5 3.5V12"
+        stroke="#666666"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </div>
+</a>
