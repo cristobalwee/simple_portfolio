@@ -13,8 +13,10 @@
   "dependencies": {
     "@astrojs/react": "^4.2.1",
     "astro": "^5.6.1",
+    "liveline": "^0.0.7",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "recharts": "^3.8.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.10",

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
@@ -56,6 +57,8 @@ const ogDescription = "Design Technologist, interaction engineer.";
     <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={ogImage} />
+
+    <ClientRouter />
   </head>
 
   <body>
@@ -155,6 +158,9 @@ const ogDescription = "Design Technologist, interaction engineer.";
           ".project-carousel-image"
         );
         if (carouselImages.length === 0) return;
+
+        const existingOverlay = document.querySelector(".lightbox-overlay");
+        if (existingOverlay) existingOverlay.remove();
 
         const overlay = document.createElement("div");
         overlay.className = "lightbox-overlay";
@@ -347,13 +353,27 @@ const ogDescription = "Design Technologist, interaction engineer.";
         }
       }
 
-      window.addEventListener("load", function () {
+      let weatherTimeManager = null;
+
+      function syncRouteBodyClass() {
+        document.body.classList.toggle(
+          "pv-route",
+          location.pathname.startsWith("/polyvane")
+        );
+      }
+
+      function initPage() {
+        syncRouteBodyClass();
         animateBioLines();
         initProjectAccordion();
         initLightbox();
         document.body.classList.add("loaded");
-        new WeatherTimeManager();
-      });
+        if (!weatherTimeManager) {
+          weatherTimeManager = new WeatherTimeManager();
+        }
+      }
+
+      document.addEventListener("astro:page-load", initPage);
     </script>
   </body>
 </html>

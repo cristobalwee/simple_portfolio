@@ -606,6 +606,24 @@ img.project-swatch {
   padding-top: 3px;
 }
 
+/* Page transition: old fades out, then new fades in */
+@keyframes pageFadeOut {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-old(root) {
+  animation: pageFadeOut 250ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+::view-transition-new(root) {
+  animation: pageFadeIn 350ms cubic-bezier(0, 0, 0.2, 1) 250ms backwards;
+}
+
 /* Animation Keyframes */
 @keyframes fadeInUp {
   from {
