@@ -22,6 +22,14 @@ const WINDOWS: { label: string; value: Window; secs: number }[] = [
   { label: "All", value: "all", secs: 90 * 86400 },
 ];
 
+type Strategy = "all" | "lazy" | "weather";
+
+const STRATEGIES: { label: string; value: Strategy }[] = [
+  { label: "All", value: "all" },
+  { label: "Lazy", value: "lazy" },
+  { label: "Weather", value: "weather" },
+];
+
 const POSITIVE = "#5fb87c";
 const NEGATIVE = "#e0625e";
 const SAMPLES = 80;
@@ -35,6 +43,7 @@ const WINDOW_LABEL: Record<Window, string> = {
 
 export function PortfolioValue() {
   const [window, setWindow] = useState<Window>("7d");
+  const [strategy, setStrategy] = useState<Strategy>("all");
   const windowSecs = WINDOWS.find((w) => w.value === window)?.secs ?? 7 * 86400;
 
   // Bare-minimum from the bot API: what was traded, at what price, in what
@@ -53,12 +62,23 @@ export function PortfolioValue() {
   const openPositions = open.data?.positions ?? [];
   const resolvedPositions = resolved.data?.positions ?? [];
 
+  // Strategy filter — applied client-side so we avoid redundant API round-trips.
+  const filteredOpen = useMemo(
+    () => (strategy === "all" ? openPositions : openPositions.filter((p) => p.strategy === strategy)),
+    [openPositions, strategy],
+  );
+  const filteredResolved = useMemo(
+    () =>
+      strategy === "all" ? resolvedPositions : resolvedPositions.filter((p) => p.strategy === strategy),
+    [resolvedPositions, strategy],
+  );
+
   const tokenIds = useMemo(
     () =>
-      openPositions
+      filteredOpen
         .map((p) => tokenIdOf(p))
         .filter((t): t is string => typeof t === "string"),
-    [openPositions],
+    [filteredOpen],
   );
   const { interval, fidelityMinutes } = intervalForWindowSecs(windowSecs);
   const { histories } = usePolymarketHistories(tokenIds, interval, fidelityMinutes);
@@ -79,32 +99,50 @@ export function PortfolioValue() {
 
     // Two parallel series:
     //   value(t)  = mark-to-market of open positions + realized P&L bank
-    //               — Robinhood "Total" line. Steps up when capital is
-    //               deployed, drifts with prices, drops by size_usd on close.
+    //               — Robinhood "Total" line. Baseline is the deployed capital
+    //               so the chart never drops to $0 for pre-window positions.
     //   pnl(t)    = Σ unrealized on positions open at t + Σ realized on
     //               positions closed by t. Capital deployment is a no-op for
     //               this series; only price movement and realizations move it.
-    // Identity: value(t) - pnl(t) = Σ size_usd of currently-open positions =
-    // capital currently deployed ("cost basis").
     const series: { time: number; value: number }[] = [];
     const pnlSeries: number[] = [];
     for (let i = 0; i <= SAMPLES; i++) {
       const t = Math.floor(startSec + i * step);
       let holdings = 0;
       let unrealized = 0;
-      for (const p of openPositions) {
+
+      // Currently-open positions.
+      for (const p of filteredOpen) {
         const openedSec = isoToSec(p.opened_at);
-        if (openedSec === null || t < openedSec) continue;
         const tokenId = tokenIdOf(p);
-        const price = tokenId ? priceAt(histories[tokenId], t) : null;
-        // No price yet: mark at entry so the position shows up as deployed
-        // capital (size_usd) with zero unrealized contribution.
-        const ref = price ?? p.entry_price;
-        holdings += ref * p.shares;
-        unrealized += (ref - p.entry_price) * p.shares;
+        if (openedSec !== null && t >= openedSec) {
+          const price = tokenId ? priceAt(histories[tokenId], t) : null;
+          const ref = price ?? p.entry_price;
+          holdings += ref * p.shares;
+          unrealized += (ref - p.entry_price) * p.shares;
+        } else {
+          // Position not yet open at t — hold cost basis as the baseline so the
+          // chart starts at deployed capital rather than $0.
+          holdings += p.size_usd;
+        }
       }
+
+      // Resolved positions: track their holdings while they were active so
+      // wins/losses appear as a step at resolution rather than a jump from $0.
+      for (const c of filteredResolved) {
+        const openedSec = isoToSec(c.opened_at);
+        const closedSec = isoToSec(c.resolved_at ?? null);
+        if (openedSec === null) continue;
+        if (t >= openedSec && (closedSec === null || t < closedSec)) {
+          // Active during this sample: mark at entry price (history unavailable
+          // for resolved tokens; entry gives a stable baseline pre-resolution).
+          holdings += c.entry_price * c.shares;
+          // unrealized stays 0 — price movement shows up at the resolution step.
+        }
+      }
+
       let realized = 0;
-      for (const c of resolvedPositions) {
+      for (const c of filteredResolved) {
         const closedSec = isoToSec(c.resolved_at ?? null);
         const pnl = c.pnl ?? null;
         if (closedSec !== null && pnl !== null && t >= closedSec) realized += pnl;
@@ -117,7 +155,7 @@ export function PortfolioValue() {
     // what keeps the Liveline tip pulsing as Polymarket prices tick.
     let liveHoldings = 0;
     let liveUnrealized = 0;
-    for (const p of openPositions) {
+    for (const p of filteredOpen) {
       const tokenId = tokenIdOf(p);
       const live = tokenId ? livePrices[tokenId] : undefined;
       const fallback = tokenId ? priceAt(histories[tokenId], nowSec) : null;
@@ -125,7 +163,7 @@ export function PortfolioValue() {
       liveHoldings += ref * p.shares;
       liveUnrealized += (ref - p.entry_price) * p.shares;
     }
-    const liveRealized = resolvedPositions.reduce(
+    const liveRealized = filteredResolved.reduce(
       (acc, c) => acc + (c.pnl ?? 0),
       0,
     );
@@ -142,7 +180,7 @@ export function PortfolioValue() {
     // Percentage denominator: cost basis at window start, falling back to
     // current deployed capital — gives "% return on the capital actually at
     // work over the window."
-    const deployed = openPositions.reduce((acc, p) => acc + p.size_usd, 0);
+    const deployed = filteredOpen.reduce((acc, p) => acc + p.size_usd, 0);
     const startValue = series[0]?.value ?? 0;
     const basis = Math.max(startValue - startPnl, deployed);
     const isUp = change >= 0;
@@ -157,7 +195,7 @@ export function PortfolioValue() {
     };
     // liveAt threads the polled midpoint refresh through the memo so the
     // trailing live point re-renders on every Polymarket tick.
-  }, [openPositions, resolvedPositions, histories, livePrices, liveAt, windowSecs]);
+  }, [filteredOpen, filteredResolved, histories, livePrices, liveAt, windowSecs]);
 
   const change = pnlChange;
   const changePct = pnlBasis > 0 ? (change / pnlBasis) * 100 : 0;
@@ -198,7 +236,7 @@ export function PortfolioValue() {
           ) : null}
         </div>
         <div className="pv-portfolio-tabs">
-          <div className="pv-tabs" role="tablist">
+          <div className="pv-tabs" role="tablist" aria-label="Time window">
             {WINDOWS.map((w) => (
               <button
                 key={w.value}
@@ -212,6 +250,19 @@ export function PortfolioValue() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="pv-tabs pv-tabs--strategy" role="tablist" aria-label="Strategy">
+        {STRATEGIES.map((s) => (
+          <button
+            key={s.value}
+            role="tab"
+            aria-selected={strategy === s.value}
+            className={`pv-tab pv-tab--strategy${strategy === s.value ? " pv-tab--active" : ""}`}
+            onClick={() => setStrategy(s.value)}
+          >
+            {s.label}
+          </button>
+        ))}
       </div>
 
       <div className="pv-portfolio-chart">

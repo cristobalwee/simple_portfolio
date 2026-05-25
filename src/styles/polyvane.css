@@ -19,6 +19,7 @@
   --pv-warn: #d4a350;
   --pv-blue: #5b9bd5;
   --pv-blue-bg: rgba(91, 155, 213, 0.16);
+  --pv-border: #3a3a3a;
 }
 
 /* Override the site container width on the polyvane route only.
@@ -445,7 +446,39 @@ body.pv-route .container {
 }
 
 .pv-portfolio-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
   margin-top: 4px;
+}
+
+.pv-tabs--strategy {
+  background: none;
+  padding: 0;
+  gap: 6px;
+}
+
+.pv-tabs--strategy .pv-tab--strategy {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 999px;
+  color: var(--pv-text-muted);
+  background: var(--pv-card);
+  border: 1px solid transparent;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.pv-tabs--strategy .pv-tab--strategy:hover {
+  color: var(--pv-text);
+  border-color: var(--pv-border);
+}
+
+.pv-tabs--strategy .pv-tab--strategy.pv-tab--active {
+  color: var(--pv-text-strong);
+  background: transparent;
+  border-color: var(--pv-border);
 }
 
 /* ---------- Position cards ---------- */
@@ -610,6 +643,25 @@ body.pv-route .container {
 .pv-side--no {
   color: var(--pv-neg);
   background: var(--pv-neg-bg);
+}
+
+.pv-strategy {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.pv-strategy--weather {
+  color: var(--pv-blue);
+  background: var(--pv-blue-bg);
+}
+
+.pv-strategy--lazy {
+  color: var(--pv-warn);
+  background: rgba(212, 163, 80, 0.16);
 }
 
 .pv-outcome {

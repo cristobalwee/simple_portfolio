@@ -14,7 +14,7 @@ type SortKey =
   | "timestamp"
   | "city"
   | "bucket"
-  | "direction"
+  | "strategy"
   | "entry_price"
   | "outcome"
   | "pnl"
@@ -183,7 +183,7 @@ export function TradeJournal() {
                 <Th k="timestamp" label="When" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
                 <Th k="city" label="City" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
                 <Th k="bucket" label="Bucket" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
-                <Th k="direction" label="Side" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
+                <Th k="strategy" label="Strategy" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
                 <Th k="entry_price" label="Entry" align="right" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
                 <Th k="outcome" label="Outcome" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
                 <Th k="pnl" label="P&L" align="right" sortKey={sortKey} sortDir={sortDir} onClick={onSort} />
@@ -219,8 +219,8 @@ export function TradeJournal() {
                       <td>{t.city ?? "—"}</td>
                       <td className="pv-mono">{t.bucket ?? "—"}</td>
                       <td>
-                        <span className={`pv-side pv-side--${t.direction.toLowerCase()}`}>
-                          {t.direction}
+                        <span className={`pv-strategy pv-strategy--${t.strategy.toLowerCase()}`}>
+                          {t.strategy}
                         </span>
                       </td>
                       <td className="pv-num">{t.entry_price.toFixed(3)}</td>

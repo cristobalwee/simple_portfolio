@@ -4,7 +4,6 @@ const SECTIONS = [
   { id: "portfolio", label: "Portfolio" },
   { id: "positions", label: "Positions" },
   { id: "trades", label: "Trades" },
-  { id: "analysis", label: "Analysis" },
 ];
 
 export function SideNav() {

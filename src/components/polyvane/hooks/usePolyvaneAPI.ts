@@ -327,7 +327,7 @@ function mockPositions(
       resolved_at: resolved ? resolved.toISOString() : null,
       outcome,
       pnl: realized !== null ? round(realized, 2) : null,
-      strategy: "weather",
+      strategy: idx % 3 === 0 ? "lazy" : "weather",
       metadata: {
         token_id: `mock-${marketId}-${direction}`,
         forecast_temp: 60 + Math.floor(rand() * 30),
@@ -370,7 +370,7 @@ function mockTrades(
     return {
       id: 2000 + idx,
       timestamp: new Date(Date.now() - idx * 3 * 3600_000).toISOString(),
-      strategy: "weather",
+      strategy: idx % 3 === 0 ? "lazy" : "weather",
       market_id: marketId,
       market_question: `Mock market ${idx}`,
       direction,

@@ -373,6 +373,20 @@ const ogDescription = "Design Technologist, interaction engineer.";
         }
       }
 
+      // astro:after-swap fires inside the view-transition callback, before the
+      // browser takes the "new page" snapshot. Without this, body is opacity:0
+      // when the snapshot is captured (because .loaded hasn't been added yet),
+      // so the transition fades in an invisible page and then initPage does a
+      // second independent fade-in. This makes the body instantly visible so
+      // the snapshot captures real content and the transition looks correct.
+      document.addEventListener("astro:after-swap", () => {
+        document.body.style.transition = "none";
+        document.body.classList.add("loaded");
+        requestAnimationFrame(() => {
+          document.body.style.transition = "";
+        });
+      });
+
       document.addEventListener("astro:page-load", initPage);
     </script>
   </body>

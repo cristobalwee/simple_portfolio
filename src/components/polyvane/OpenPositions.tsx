@@ -94,8 +94,8 @@ function PositionCard({
         <div>
           <div className="pv-position-city">
             <span>{city}</span>
-            <span className={`pv-side pv-side--${p.direction.toLowerCase()}`}>
-              {p.direction}
+            <span className={`pv-strategy pv-strategy--${p.strategy.toLowerCase()}`}>
+              {p.strategy}
             </span>
           </div>
           <div className="pv-position-bucket">{bucket}</div>

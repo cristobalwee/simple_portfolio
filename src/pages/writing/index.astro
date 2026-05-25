@@ -1,0 +1,133 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("writing")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  title="Writing — Cristobal Graña Samanez"
+  description="Thoughts on design, engineering, and craft."
+  ogTitle="Writing — Cristobal Graña Samanez"
+>
+  <header class="header">
+    <h1 class="name animate-fade-in-up">
+      <a href="/" class="name-link">Cristobal Graña Samanez</a>
+    </h1>
+    <p class="title animate-fade-in-up animate-delay-1">
+      Design Technologist, interaction engineer
+    </p>
+  </header>
+
+  <main class="main">
+    <section class="writing">
+      <h2 class="section-title animate-fade-in-up animate-delay-3">Writing</h2>
+      <div class="writing-list">
+        {
+          articles.map((article, i) => (
+            <a
+              href={`/writing/${article.slug}`}
+              class={`writing-item-link animate-fade-in-up animate-delay-${4 + i}`}
+            >
+              <div class="writing-item">
+                <div class="writing-item-content">
+                  <span class="writing-item-title">{article.data.title}</span>
+                  <span class="writing-item-description">
+                    {article.data.description}
+                  </span>
+                </div>
+                <span class="writing-item-date">
+                  {formatDate(article.data.date)}
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .name-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .writing-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+
+  .writing-item-link {
+    text-decoration: none;
+    margin: 0 -12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  .writing-item-link:hover {
+    background-color: #242424;
+  }
+
+  .writing-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 12px;
+  }
+
+  .writing-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .writing-item-title {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  .writing-item-description {
+    font-size: 14px;
+    color: #888888;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .writing-item-date {
+    font-size: 14px;
+    color: #666666;
+    font-weight: 400;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .writing-item {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .writing-item-description {
+      white-space: normal;
+    }
+  }
+</style>
