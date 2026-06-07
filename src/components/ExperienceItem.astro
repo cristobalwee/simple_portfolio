@@ -1,0 +1,18 @@
+---
+interface Props {
+  date: string;
+  title: string;
+  description: string;
+  delayClass: string;
+}
+
+const { date, title, description, delayClass } = Astro.props;
+---
+
+<div class={`experience-item ${delayClass}`}>
+  <span class="experience-date">{date}</span>
+  <div class="experience-content">
+    <h3 class="experience-title">{title}</h3>
+    <p class="experience-subtitle">{description}</p>
+  </div>
+</div>

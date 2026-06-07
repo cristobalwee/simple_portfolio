@@ -1,8 +1,41 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectItem from "../components/ProjectItem.astro";
 import EnjoyingItem from "../components/EnjoyingItem.astro";
 import TodayItem from "../components/TodayItem.astro";
+import WritingItem from "../components/WritingItem.astro";
+import ExperienceItem from "../components/ExperienceItem.astro";
+import HeroCarousel from "../components/HeroCarousel.astro";
+
+// --- Hero carousel image set --------------------------------------------
+// Images are auto-collected from every "{project}-{number}.webp" in public/.
+//
+// heroOrder:   filenames to pin to the front, in this exact order. Anything
+//              not listed follows afterward, sorted alphabetically. Leave
+//              empty for fully automatic (alphabetical) ordering.
+// heroExclude: filenames to leave out entirely.
+const heroOrder: string[] = ['trellis-1.webp', 'ray-2.webp', 'spotlight-1.webp', 'threadcheck-1.webp', 'trellis-2.webp', 'trellis-4.webp', 'trackit-1.webp', 'tastify-1.webp', 'trackit-2.webp', 'ray-3.webp'];
+const heroExclude: string[] = ['ray-4.webp'];
+
+const publicDir = path.resolve("public");
+const heroFiles = fs
+  .readdirSync(publicDir)
+  .filter((file: string) => /^[a-z0-9]+-\d+\.webp$/i.test(file))
+  .filter((file: string) => !heroExclude.includes(file))
+  .sort();
+
+const orderedFiles = [
+  ...heroOrder.filter((file) => heroFiles.includes(file)),
+  ...heroFiles.filter((file) => !heroOrder.includes(file)),
+];
+
+const heroImages = orderedFiles.map((file: string) => {
+  const [, project, number] = file.match(/^([a-z0-9]+)-(\d+)\.webp$/i)!;
+  const name = project.charAt(0).toUpperCase() + project.slice(1);
+  return { src: `/${file}`, alt: `${name} preview ${number}` };
+});
 ---
 
 <BaseLayout>
@@ -22,8 +55,8 @@ import TodayItem from "../components/TodayItem.astro";
           class="link"
           target="_blank"
           rel="noreferrer">craft</a
-        > and enjoyability. I like to deliver products with a high level of <a href="/writing/care" class="link">care</a>, and have a strong interest in solving design problems with a technical mindset.<br /><br />
-        I'm currently leading all things UX at
+        > and enjoyability. I like to deliver products with a high level of <a class="link" href="/writing/care">care</a> and have a strong interest in solving design problems with a technical mindset.<br /><br />
+        I'm currently leading product and design at
         <a
           href="https://www.centaurihs.com/"
           class="link"
@@ -37,13 +70,17 @@ import TodayItem from "../components/TodayItem.astro";
           rel="noreferrer">GoDaddy</a
         >.
       </p>
+      <HeroCarousel
+        images={heroImages}
+        delayClass="animate-fade-in-up animate-delay-3"
+      />
     </section>
 
     <section class="projects">
-      <h2 class="section-title animate-fade-in-up animate-delay-3">Building</h2>
+      <h2 class="section-title animate-fade-in-up animate-delay-4">Building</h2>
       <div class="projects-table">
         <ProjectItem
-          delayClass="animate-fade-in-up animate-delay-4"
+          delayClass="animate-fade-in-up animate-delay-5"
           swatch="/trellis.png"
           swatchAlt="Trellis logo"
           title="Trellis"
@@ -52,13 +89,14 @@ import TodayItem from "../components/TodayItem.astro";
           description="A design system foundation generator, transforming brand inputs into accessible color palettes, typography ramps, and a robust, framework-agnostic token architecture."
           images={[
             { src: "/trellis-1.webp", alt: "Trellis homescreen", width: 945, height: 720 },
+            { src: "/trellis-4.webp", alt: "Trellis generator", width: 945, height: 720 },
             { src: "/trellis-2.webp", alt: "Trellis generator", width: 945, height: 720 },
             { src: "/trellis-3.webp", alt: "Trellis component preview", width: 945, height: 720 },
           ]}
           seeMoreUrl="https://trellisdesign.io/"
         />
         <ProjectItem
-          delayClass="animate-fade-in-up animate-delay-5"
+          delayClass="animate-fade-in-up animate-delay-6"
           swatch="/tastify.png"
           swatchAlt="Tastify logo"
           title="Tastify"
@@ -72,7 +110,7 @@ import TodayItem from "../components/TodayItem.astro";
           seeMoreUrl="https://tastify.dev/"
         />
         <ProjectItem
-          delayClass="animate-fade-in-up animate-delay-6"
+          delayClass="animate-fade-in-up animate-delay-7"
           swatch="/ray.png"
           swatchAlt="Ray logo"
           title="Ray"
@@ -90,56 +128,42 @@ import TodayItem from "../components/TodayItem.astro";
       </div>
     </section>
 
-    <section class="currently-enjoying">
-      <h2 class="section-title animate-fade-in-up animate-delay-7">Enjoying</h2>
-      <div class="enjoying-grid">
-        <EnjoyingItem
-          delayClass="animate-fade-in-up animate-delay-8"
-          href="https://open.spotify.com/album/6wymdowW8HbQ4H3nVs93Hj?si=6bFdAHMtTceanuesZBtGvA"
-          thumbnail="/maruja.webp"
-          thumbnailAlt="Pain to Power"
-          title="Pain to Power"
-          subtitle="By Maruja"
-        />
-        <EnjoyingItem
+    <section class="writing">
+      <h2 class="section-title animate-fade-in-up animate-delay-8">Writing</h2>
+      <div class="today-grid">
+        <WritingItem
           delayClass="animate-fade-in-up animate-delay-9"
-          href="https://open.spotify.com/album/0eeXb23yMW6EaIgm63xxPC?si=CtKOmJ5JRI296lktd3rlyQ"
-          thumbnail="/geese.webp"
-          thumbnailAlt="Getting Killed"
-          title="Getting Killed"
-          subtitle="By Geese"
-        />
-        <EnjoyingItem
-          delayClass="animate-fade-in-up animate-delay-10"
-          href="https://open.spotify.com/album/6xuXmpSyh7WqIct3bvsSfg?si=-7tep3CoQHCoQy7vS_nsjg"
-          thumbnail="/bpm.webp"
-          thumbnailAlt="The BPM"
-          title="The BPM"
-          subtitle="By Sudan Archives"
+          href="/writing/care"
+          date="05/26"
+          title="Somebody still has to care"
+          description="Why care is the ultimate filter for quality"
         />
       </div>
     </section>
 
     <section class="today">
-      <h2 class="section-title animate-fade-in-up animate-delay-9">Projects</h2>
+      <h2 class="section-title animate-fade-in-up animate-delay-8">Other work</h2>
       <div class="today-grid">
         <TodayItem
-          delayClass="animate-fade-in-up animate-delay-10"
+          delayClass="animate-fade-in-up animate-delay-9"
           href="https://apps.apple.com/us/app/beat-the-box-card-game/id6746703360?platform=iphone"
+          date="2025"
           title="Beat the Box"
-          subtitle="iOS App · 2025"
+          description="iOS App"
+        />
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-10"
+          href="https://bonnobartending.com"
+          date="2024"
+          title="Bonno Bartending"
+          description="Website"
         />
         <TodayItem
           delayClass="animate-fade-in-up animate-delay-11"
-          href="https://bonnobartending.com"
-          title="Bonno Bartending"
-          subtitle="Website · 2024"
-        />
-        <TodayItem
-          delayClass="animate-fade-in-up animate-delay-12"
           href="https://apps.apple.com/us/app/perfect-roaster/id6664058919?platform=iphone"
+          date="2024"
           title="Perfect Roaster"
-          subtitle="Mobile App · 2024"
+          description="Mobile App"
         />
       </div>
     </section>

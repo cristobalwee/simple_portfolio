@@ -1,31 +1,24 @@
 ---
 title: Somebody still has to care
-date: "2026-05-20"
+date: "2026-06-06"
 description: On why care has become the last true filter for quality in applications.
 ---
+There's a lot of talk lately about taste; discussions around how, as LLMs get better and better, humans are meant to differentiate ourselves from the machines. If Claude can one-shot a beautiful website in 15s, what's left for us to do? 
 
-There's a line from the Linear blog that I keep coming back to: *why is quality so rare?* It's a genuine question, and I think the honest answer is that craft is hard to justify. It doesn't show up on a roadmap. It resists measurement. And in most organizational structures, the time it demands is the first thing cut.
+But you and I both already know that there is a huge variance in Claude's output depending on who does the prompting – the intangible ability to encode what you want, rather than having an LLM guess, is what a seasoned developer has over a newbie. So now, as we concede that software development has become [commoditized](https://www.reddit.com/r/SaasDevelopers/comments/1rywnw8/ai_is_commodifying_software_faster_than_most_of/), we look to codify taste itself onto our agents, so that it, too, can just be a markdown file that they follow.
 
-But I've come to believe that quality isn't separable from the thing itself. A form that frustrates, a transition that drags, a layout that makes you work — these aren't cosmetic failures. They are the product. The surface *is* the substance when you're building interfaces.
-
----
-
-I used to think craft was about taste. That you either cared about the right things or you didn't. But that's too easy. Taste gets you started, but it doesn't get the work done. What actually produces quality is something closer to stubbornness — the willingness to keep returning to a thing after the obvious problems are solved, because you can feel that it isn't right yet.
-
-This is uncomfortable. It means sitting with imprecision longer than feels productive. It means killing work you're proud of because something better exists, even if you can't name it yet. It means defending decisions to stakeholders in language that doesn't quite capture what you're trying to protect.
-
-The craft-oriented designer is always in danger of seeming slow, or precious, or unable to ship. These are risks worth taking.
+There have been big leaps in this area already: highly skilled design engineers like [Emil Kowalski](https://emilkowal.ski/ui/agents-with-taste) and [Jakub Krehel](https://jakub.kr/writing/details-that-make-interfaces-feel-better) have enshrined their inimitable taste into shareable skills, readily available for anyone with a machine and an LLM subscription. Design tools like Variant UI and Claude Design make crafting interfaces as accessible as ever, "no design knowledge needed", they tout. But this now leads to the inevitable question: if a layman, with no software or product experience, vibe codes an entire production-level application leveraging all these tools and taste-drivers to their full extent, will they attain something of quality? 
 
 ---
 
-I'm also skeptical of craft as aesthetic. It's easy to confuse refinement with taste, and taste with a particular set of references — usually Swiss typography, Dieter Rams, the Bauhaus tradition. That lineage is worth knowing, but it's not a substitute for rigor.
+I've been thinking about this question a lot recently (kind of hard to escape the dread of becoming obsolete seeing how good LLMs are now), but I keep finding that there has to be something else beyond taste – an additional filter that truly separates great applications from middling ones. And then I saw a [tweet](https://x.com/jipvandervelde/status/2062258773264408583?s=20) by Jip Vandervelde, one of the creators of [Grug](https://apps.apple.com/us/app/grug/id6751649802), on the heels of his app winning Apple's 2026 design award for delight and fun. One particular quote really stuck out to me:
 
-Real craft is contextual. It asks: *for this problem, for this person, at this moment* — what is the right level of resolution? Sometimes the right answer is rough. Sometimes speed is the quality. The discipline is knowing the difference, not defaulting to polish.
+>"AI can write your code. It can help you move fast. It can make impossible things feel possible. But it cannot care. It cannot make your app memorable. It cannot make your app feel like it has a soul."
 
----
+Grug is as simple an app as they come, you could probably vibe code it in the span of a few hours if you were intent on doing so. Even the design itself, the branding and art direction, can be imitated. But Grug has a soul, and – however intangible this is – it does not feel like I can recreate its intrinsic magic easily. It feels beautiful, it feels fun, it feels like its creators cared about what they were building. 
 
-What I've noticed, working across design systems and product interfaces over the years, is that quality tends to come from the edges of a project — from the person who cared about the empty state when no one asked, who caught the transition that was two frames too slow, who rewrote the error message at midnight because the original was technically correct but felt dismissive.
+And that's ultimately the answer to my question: no matter how advanced LLMs get (at least in terms of how they operate currently), no matter how much taste we can inject and encode, they cannot care. Sure, LLMs have gotten so good that they already preempt these insights, they are able to seek out quality and think about accessibility, maintainability, delight, before we can even prompt them to do so. 
 
-These aren't heroic acts. They're just what it looks like when someone is genuinely invested in what they're making. And that investment is, I think, teachable — not as a set of rules, but as a habit of attention.
+But an LLM doesn't have the capacity to care about your application; you must be the one telling it to make it better. Even if Claude can improve a whole feature in a split second, you still have to be the one directing it to do so. You still have to be the ultimate filter for your product's quality, you still have to pick every nit and obsess over every detail until it feels right.
 
-Pay close attention to the things that bother you. Then fix them.
+You still have to be the one who cares.
