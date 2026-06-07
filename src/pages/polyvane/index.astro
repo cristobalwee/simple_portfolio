@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Dashboard } from "../../components/polyvane/Dashboard";
+import "../../styles/polyvane.css";
+---
+
+<BaseLayout
+  title="PolyVane Dashboard - Cristobal Graña Samanez"
+  ogTitle="PolyVane Dashboard"
+  ogUrl="https://cristobalgrana.me/polyvane/"
+>
+  <main class="main">
+    <Dashboard client:load />
+  </main>
+</BaseLayout>

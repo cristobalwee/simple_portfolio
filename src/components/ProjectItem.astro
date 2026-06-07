@@ -1,0 +1,61 @@
+---
+interface ProjectImage {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Props {
+  swatch: string;
+  swatchAlt: string;
+  title: string;
+  subtitle: string;
+  year: string;
+  description: string;
+  images: ProjectImage[];
+  seeMoreUrl: string;
+  delayClass: string;
+}
+
+const {
+  swatch,
+  swatchAlt,
+  title,
+  subtitle,
+  year,
+  description,
+  images,
+  seeMoreUrl,
+  delayClass,
+} = Astro.props;
+---
+
+<div class={`project-item ${delayClass}`}>
+  <div class="project-row">
+    <img class="project-swatch" src={swatch} alt={swatchAlt} width="36" height="36" />
+    <span class="project-title">{title}</span>
+    <span class="project-subtitle mobile-hide">{subtitle}</span>
+    <span class="project-year">{year}</span>
+  </div>
+  <div class="project-expand">
+    <div class="project-expand-inner">
+      <p class="project-description">{description}</p>
+      <div class="project-carousel">
+        <div class="project-carousel-track">
+          {images.map((img) => (
+            <img
+              class="project-carousel-image"
+              src={img.src}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </div>
+      <a href={seeMoreUrl} class="project-see-more" target="_blank" rel="noreferrer">See more</a>
+    </div>
+  </div>
+</div>

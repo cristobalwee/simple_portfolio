@@ -1,0 +1,171 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectItem from "../components/ProjectItem.astro";
+import EnjoyingItem from "../components/EnjoyingItem.astro";
+import TodayItem from "../components/TodayItem.astro";
+import WritingItem from "../components/WritingItem.astro";
+import ExperienceItem from "../components/ExperienceItem.astro";
+import HeroCarousel from "../components/HeroCarousel.astro";
+
+// --- Hero carousel image set --------------------------------------------
+// Images are auto-collected from every "{project}-{number}.webp" in public/.
+//
+// heroOrder:   filenames to pin to the front, in this exact order. Anything
+//              not listed follows afterward, sorted alphabetically. Leave
+//              empty for fully automatic (alphabetical) ordering.
+// heroExclude: filenames to leave out entirely.
+const heroOrder: string[] = ['trellis-1.webp', 'ray-2.webp', 'spotlight-1.webp', 'threadcheck-1.webp', 'trellis-2.webp', 'trellis-4.webp', 'trackit-1.webp', 'tastify-1.webp', 'trackit-2.webp', 'ray-3.webp'];
+const heroExclude: string[] = ['ray-4.webp'];
+
+const publicDir = path.resolve("public");
+const heroFiles = fs
+  .readdirSync(publicDir)
+  .filter((file: string) => /^[a-z0-9]+-\d+\.webp$/i.test(file))
+  .filter((file: string) => !heroExclude.includes(file))
+  .sort();
+
+const orderedFiles = [
+  ...heroOrder.filter((file) => heroFiles.includes(file)),
+  ...heroFiles.filter((file) => !heroOrder.includes(file)),
+];
+
+const heroImages = orderedFiles.map((file: string) => {
+  const [, project, number] = file.match(/^([a-z0-9]+)-(\d+)\.webp$/i)!;
+  const name = project.charAt(0).toUpperCase() + project.slice(1);
+  return { src: `/${file}`, alt: `${name} preview ${number}` };
+});
+---
+
+<BaseLayout>
+  <header class="header">
+    <h1 class="name animate-fade-in-up">Cristobal Graña Samanez</h1>
+    <p class="title animate-fade-in-up animate-delay-1">
+      Design Technologist, interaction engineer
+    </p>
+  </header>
+
+  <main class="main">
+    <section class="about">
+      <p id="bio">
+        I'm a Peruvian-born designer and engineer with a passion for
+        <a
+          href="https://linear.app/now/why-is-quality-so-rare"
+          class="link"
+          target="_blank"
+          rel="noreferrer">craft</a
+        > and enjoyability. I like to deliver products with a high level of <a class="link" href="/writing/care">care</a> and have a strong interest in solving design problems with a technical mindset.<br /><br />
+        I'm currently leading product and design at
+        <a
+          href="https://www.centaurihs.com/"
+          class="link"
+          target="_blank"
+          rel="noreferrer">Centauri</a
+        >, building interfaces that simplify the healthcare data experience for patients, providers, and payors. Previously, I was a Lead UX Engineer on the Design Foundations team at
+        <a
+          href="https://www.godaddy.com/"
+          class="link"
+          target="_blank"
+          rel="noreferrer">GoDaddy</a
+        >.
+      </p>
+      <HeroCarousel
+        images={heroImages}
+        delayClass="animate-fade-in-up animate-delay-3"
+      />
+    </section>
+
+    <section class="projects">
+      <h2 class="section-title animate-fade-in-up animate-delay-4">Building</h2>
+      <div class="projects-table">
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-5"
+          swatch="/trellis.png"
+          swatchAlt="Trellis logo"
+          title="Trellis"
+          subtitle="Website"
+          year="2026"
+          description="A design system foundation generator, transforming brand inputs into accessible color palettes, typography ramps, and a robust, framework-agnostic token architecture."
+          images={[
+            { src: "/trellis-1.webp", alt: "Trellis homescreen", width: 945, height: 720 },
+            { src: "/trellis-4.webp", alt: "Trellis generator", width: 945, height: 720 },
+            { src: "/trellis-2.webp", alt: "Trellis generator", width: 945, height: 720 },
+            { src: "/trellis-3.webp", alt: "Trellis component preview", width: 945, height: 720 },
+          ]}
+          seeMoreUrl="https://trellisdesign.io/"
+        />
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-6"
+          swatch="/tastify.png"
+          swatchAlt="Tastify logo"
+          title="Tastify"
+          subtitle="TypeScript Toolkit"
+          year="2026"
+          description="An open-source dev toolkit for displaying spotify listening habits on webapps, complete with themable UI components and pre-built OAuth serverless functions."
+          images={[
+            { src: "/tastify-1.webp", alt: "Tastify homescreen, dark mode", width: 945, height: 720 },
+            { src: "/tastify-2.webp", alt: "Tastify homescreen, light mode", width: 945, height: 720 },
+          ]}
+          seeMoreUrl="https://tastify.dev/"
+        />
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-7"
+          swatch="/ray.png"
+          swatchAlt="Ray logo"
+          title="Ray"
+          subtitle="iOS App"
+          year="2025"
+          description="Ray is a habit-forming daily reading app designed for thoughtful reflection in a world of distraction. Unlock a beautifully curated library of over 1,000 poems, short stories, and essays; no accounts, no subscriptions, no hidden costs."
+          images={[
+            { src: "/ray-2.webp", alt: "Ray mobile screens: home, reading, and reading detail", width: 1263, height: 792 },
+            { src: "/ray-1.webp", alt: "Ray website", width: 945, height: 720 },
+            { src: "/ray-3.webp", alt: "Ray mobile screens: discover and vault", width: 918, height: 792 },
+            { src: "/ray-4.webp", alt: "Ray promotional materials", width: 1338, height: 720 },
+          ]}
+          seeMoreUrl="https://readray.app/"
+        />
+      </div>
+    </section>
+
+    <section class="writing">
+      <h2 class="section-title animate-fade-in-up animate-delay-8">Writing</h2>
+      <div class="today-grid">
+        <WritingItem
+          delayClass="animate-fade-in-up animate-delay-9"
+          href="/writing/care"
+          date="05/26"
+          title="Somebody still has to care"
+          description="Why care is the ultimate filter for quality"
+        />
+      </div>
+    </section>
+
+    <section class="today">
+      <h2 class="section-title animate-fade-in-up animate-delay-8">Other work</h2>
+      <div class="today-grid">
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-9"
+          href="https://apps.apple.com/us/app/beat-the-box-card-game/id6746703360?platform=iphone"
+          date="2025"
+          title="Beat the Box"
+          description="iOS App"
+        />
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-10"
+          href="https://bonnobartending.com"
+          date="2024"
+          title="Bonno Bartending"
+          description="Website"
+        />
+        <TodayItem
+          delayClass="animate-fade-in-up animate-delay-11"
+          href="https://apps.apple.com/us/app/perfect-roaster/id6664058919?platform=iphone"
+          date="2024"
+          title="Perfect Roaster"
+          description="Mobile App"
+        />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

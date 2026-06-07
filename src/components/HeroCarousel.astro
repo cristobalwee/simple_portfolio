@@ -1,0 +1,528 @@
+---
+interface HeroImage {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  images: HeroImage[];
+  delayClass?: string;
+  intervalMs?: number;
+}
+
+const { images, delayClass = "", intervalMs = 4500 } = Astro.props;
+
+const first = images[0];
+const total = images.length;
+---
+
+<div
+  class:list={["hero-carousel", delayClass]}
+  data-hero-carousel
+  data-images={JSON.stringify(images)}
+  data-interval={intervalMs}
+>
+  <div class="hero-carousel-stage" data-stage>
+    <img
+      class="hero-carousel-img"
+      data-layer="0"
+      src={first.src}
+      alt={first.alt}
+      loading="eager"
+      decoding="async"
+    />
+    <img
+      class="hero-carousel-img"
+      data-layer="1"
+      src={first.src}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="hero-carousel-controls" data-controls>
+    <button
+      type="button"
+      class="hero-pill"
+      data-pill
+      aria-label="Pause slideshow"
+      aria-pressed="false"
+    >
+      <span class="hero-pill-fill" data-fill aria-hidden="true"></span>
+      <span class="hero-pill-content">
+        <span class="hero-pill-icon" data-icon aria-hidden="true">
+          <span class="hero-pill-bar hero-pill-bar--left"></span>
+          <span class="hero-pill-bar hero-pill-bar--right"></span>
+        </span>
+        <span class="hero-pill-count">
+          <span data-current>1</span>/<span data-total>{total}</span>
+        </span>
+      </span>
+    </button>
+
+    <span class="hero-carousel-nav">
+      <button type="button" class="hero-chevron" data-prev aria-label="Previous image">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M8.5 3L4.5 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+
+      <button type="button" class="hero-chevron" data-next aria-label="Next image">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M5.5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </span>
+  </div>
+</div>
+
+<style>
+  .hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-color: #292929;
+    border-radius: 16px;
+    overflow: hidden;
+    display: block;
+  }
+
+  .hero-carousel-stage {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .hero-carousel-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    will-change: opacity, transform, filter;
+    backface-visibility: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .hero-carousel-controls {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    /* Let clicks fall through the gap to the stage (= next), while the
+       actual buttons stay interactive. */
+    pointer-events: none;
+  }
+
+  .hero-carousel-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-pill,
+  .hero-chevron {
+    pointer-events: auto;
+  }
+
+  .hero-pill,
+  .hero-chevron {
+    border: none;
+    background-color: #3e3e3e;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s ease;
+  }
+
+  .hero-pill:hover,
+  .hero-chevron:hover {
+    background-color: #4a4a4a;
+  }
+
+  .hero-pill:focus-visible,
+  .hero-chevron:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  .hero-pill {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .hero-pill-fill {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.18);
+    transform: scaleX(0);
+    transform-origin: left center;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-pill-content {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-pill-count {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    padding-top: 1px;
+    display: none;
+  }
+
+  .hero-pill-icon {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .hero-pill-bar {
+    position: absolute;
+    inset: 0;
+    background-color: #ffffff;
+    transition: clip-path 0.15s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* Playing state -> pause icon (two bars) */
+  .hero-pill-bar--left {
+    clip-path: polygon(18.75% 12.5%, 37.5% 12.5%, 37.5% 87.5%, 18.75% 87.5%);
+  }
+
+  .hero-pill-bar--right {
+    clip-path: polygon(62.5% 12.5%, 81.25% 12.5%, 81.25% 87.5%, 62.5% 87.5%);
+  }
+
+  /* Paused state -> play icon (triangle, split down the middle) */
+  .hero-pill.is-paused .hero-pill-bar--left {
+    clip-path: polygon(25% 12.5%, 56.25% 31.25%, 56.25% 68.75%, 25% 87.5%);
+  }
+
+  .hero-pill.is-paused .hero-pill-bar--right {
+    clip-path: polygon(56.25% 31.25%, 87.5% 50%, 87.5% 50%, 56.25% 68.75%);
+  }
+
+  .hero-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 480px) {
+    .hero-carousel {
+      height: 280px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-pill-bar {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  interface HeroImage {
+    src: string;
+    alt: string;
+  }
+
+  let activeController: { destroy: () => void } | null = null;
+
+  function createCarousel(root: HTMLElement) {
+    const images: HeroImage[] = JSON.parse(root.dataset.images || "[]");
+    const interval = Number(root.dataset.interval) || 4500;
+    const n = images.length;
+
+    const layers = Array.from(
+      root.querySelectorAll<HTMLImageElement>(".hero-carousel-img")
+    );
+    const stage = root.querySelector<HTMLElement>("[data-stage]");
+    const controls = root.querySelector<HTMLElement>("[data-controls]");
+    const pill = root.querySelector<HTMLButtonElement>("[data-pill]");
+    const fill = root.querySelector<HTMLElement>("[data-fill]");
+    const prevBtn = root.querySelector<HTMLButtonElement>("[data-prev]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-next]");
+    const currentEl = root.querySelector<HTMLElement>("[data-current]");
+
+    if (!stage || !pill || !fill || !prevBtn || !nextBtn || !currentEl) {
+      return { destroy() {} };
+    }
+
+    // Nothing to rotate through: hide controls and bail.
+    if (n < 2) {
+      if (controls) controls.style.display = "none";
+      return { destroy() {} };
+    }
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Preload every image so transitions never wait on the network.
+    images.forEach((img) => {
+      const pre = new Image();
+      pre.src = img.src;
+    });
+
+    let current = 0;
+    let active = 0; // index into layers[] that is currently shown
+    let playing = true;
+    let crossfades: Animation[] = [];
+    let progressAnim: Animation | null = null;
+    let destroyed = false;
+
+    function applyResting() {
+      const top = layers[active];
+      const bottom = layers[active ^ 1];
+      top.style.opacity = "1";
+      top.style.filter = "none";
+      top.style.transform = "none";
+      top.style.zIndex = "2";
+      bottom.style.opacity = "0";
+      bottom.style.filter = "none";
+      bottom.style.transform = "none";
+      bottom.style.zIndex = "1";
+    }
+
+    function cancelCrossfades() {
+      crossfades.forEach((a) => {
+        try {
+          a.cancel();
+        } catch {
+          /* noop */
+        }
+      });
+      crossfades = [];
+    }
+
+    function updateCount() {
+      if (!currentEl) return;
+      currentEl.textContent = String(current + 1);
+    }
+
+    function go(target: number) {
+      const next = ((target % n) + n) % n;
+      if (next === current) return;
+
+      // Interruptible: settle whatever is mid-flight before starting anew.
+      cancelCrossfades();
+      applyResting();
+
+      const out = layers[active];
+      const inc = layers[active ^ 1];
+
+      inc.src = images[next].src;
+      inc.alt = images[next].alt;
+      out.style.zIndex = "1";
+      inc.style.zIndex = "2";
+
+      if (reduceMotion) {
+        inc.style.opacity = "1";
+        out.style.opacity = "0";
+        active ^= 1;
+        current = next;
+        updateCount();
+        return;
+      }
+
+      inc.style.opacity = "0";
+      const easing = "cubic-bezier(0.4, 0, 0.2, 1)";
+
+      const a1 = out.animate(
+        [
+          { opacity: 1, filter: "blur(0px)", transform: "scale(1)" },
+          { opacity: 0, filter: "blur(10px)", transform: "scale(0.94)" },
+        ],
+        { duration: 420, easing, fill: "forwards" }
+      );
+
+      // The incoming image blurs in and scales up shortly after the
+      // outgoing one begins to leave.
+      const a2 = inc.animate(
+        [
+          { opacity: 0, filter: "blur(10px)", transform: "scale(0.94)" },
+          { opacity: 1, filter: "blur(0px)", transform: "scale(1)" },
+        ],
+        { duration: 460, delay: 60, easing, fill: "forwards" }
+      );
+
+      crossfades = [a1, a2];
+      active ^= 1;
+      current = next;
+      updateCount();
+    }
+
+    function startProgress() {
+      progressAnim?.cancel();
+      if (reduceMotion) {
+        // No visible countdown; just schedule advances on a timer-like anim.
+        progressAnim = fill.animate([{ opacity: 0 }, { opacity: 0 }], {
+          duration: interval,
+        });
+      } else {
+        progressAnim = fill.animate(
+          [{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
+          { duration: interval, easing: "linear", fill: "forwards" }
+        );
+      }
+      progressAnim.onfinish = () => {
+        if (destroyed || !playing) return;
+        go(current + 1);
+        startProgress();
+      };
+    }
+
+    function resetProgress() {
+      progressAnim?.cancel();
+      progressAnim = null;
+      fill.style.transform = "scaleX(0)";
+    }
+
+    function setPlaying(value: boolean) {
+      playing = value;
+      pill.classList.toggle("is-paused", !value);
+      pill.setAttribute("aria-pressed", String(!value));
+      pill.setAttribute(
+        "aria-label",
+        value ? "Pause slideshow" : "Play slideshow"
+      );
+    }
+
+    function play() {
+      if (playing) return;
+      setPlaying(true);
+      if (progressAnim && progressAnim.playState === "paused") {
+        progressAnim.play();
+      } else {
+        startProgress();
+      }
+    }
+
+    function pause() {
+      if (!playing) return;
+      setPlaying(false);
+      progressAnim?.pause();
+    }
+
+    function togglePlay() {
+      playing ? pause() : play();
+    }
+
+    function step(delta: number) {
+      go(current + delta);
+      if (playing) startProgress();
+      else resetProgress();
+    }
+
+    // --- wiring ---
+    const onStageClick = () => step(1);
+    const onPrev = (e: Event) => {
+      e.stopPropagation();
+      step(-1);
+    };
+    const onNext = (e: Event) => {
+      e.stopPropagation();
+      step(1);
+    };
+    const onPill = (e: Event) => {
+      e.stopPropagation();
+      togglePlay();
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (
+        t &&
+        (t.tagName === "INPUT" ||
+          t.tagName === "TEXTAREA" ||
+          t.tagName === "SELECT" ||
+          t.isContentEditable)
+      ) {
+        return;
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        step(1);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        step(-1);
+      }
+    };
+
+    const onVisibility = () => {
+      if (!playing) return;
+      if (document.hidden) progressAnim?.pause();
+      else progressAnim?.play();
+    };
+
+    stage.addEventListener("click", onStageClick);
+    prevBtn.addEventListener("click", onPrev);
+    nextBtn.addEventListener("click", onNext);
+    pill.addEventListener("click", onPill);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("visibilitychange", onVisibility);
+
+    // --- boot ---
+    applyResting();
+    updateCount();
+    setPlaying(true);
+    startProgress();
+
+    return {
+      destroy() {
+        destroyed = true;
+        cancelCrossfades();
+        progressAnim?.cancel();
+        stage.removeEventListener("click", onStageClick);
+        prevBtn.removeEventListener("click", onPrev);
+        nextBtn.removeEventListener("click", onNext);
+        pill.removeEventListener("click", onPill);
+        document.removeEventListener("keydown", onKey);
+        document.removeEventListener("visibilitychange", onVisibility);
+      },
+    };
+  }
+
+  function setup() {
+    activeController?.destroy();
+    activeController = null;
+    const root = document.querySelector<HTMLElement>("[data-hero-carousel]");
+    if (root) activeController = createCarousel(root);
+  }
+
+  document.addEventListener("astro:page-load", setup);
+  document.addEventListener("astro:before-swap", () => {
+    activeController?.destroy();
+    activeController = null;
+  });
+</script>
