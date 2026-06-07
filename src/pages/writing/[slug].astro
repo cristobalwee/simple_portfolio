@@ -157,6 +157,25 @@ function formatDate(dateStr: string) {
   .prose :global(blockquote p:last-child) {
     margin-bottom: 0;
   }
+
+  .prose :global(figure) {
+    margin: 40px 0;
+  }
+
+  .prose :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: #292929;
+    border-radius: 16px;
+  }
+
+  .prose :global(figcaption) {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #838383;
+    text-align: center;
+  }
 </style>
 
 <script>

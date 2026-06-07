@@ -387,6 +387,12 @@ const ogDescription = "Design Technologist, interaction engineer.";
         requestAnimationFrame(() => {
           document.body.style.transition = "";
         });
+
+        // ClientRouter restores the previous scroll position on back
+        // navigation; force the index page to always start at the top.
+        if (location.pathname === "/") {
+          window.scrollTo(0, 0);
+        }
       });
 
       document.addEventListener("astro:page-load", initPage);
