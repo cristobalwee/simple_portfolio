@@ -129,7 +129,7 @@ body.loaded {
 }
 
 .projects {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .section-title {
@@ -435,7 +435,7 @@ img.project-swatch {
 }
 
 .currently-enjoying, .writing {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .enjoying-grid {
@@ -512,7 +512,7 @@ img.project-swatch {
 
 /* Today section (duplicated from currently-enjoying so it can be styled independently) */
 .today {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .today-grid {
@@ -595,7 +595,7 @@ img.project-swatch {
 
 /* Experience section (based on the today/currently-enjoying item layout) */
 .experience {
-  margin-bottom: 80px;
+  margin-bottom: 64px;
 }
 
 .experience-grid {
