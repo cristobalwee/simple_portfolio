@@ -61,6 +61,16 @@ const ogDescription = "Design Technologist, interaction engineer.";
     <meta name="twitter:image" content={ogImage} />
 
     <ClientRouter />
+
+    <!-- Mark the very first (full) page load so entrance animations only play
+         once. On client-side navigations the view-transition cross-fade owns
+         the fade, avoiding compounded animations that stutter on mobile. -->
+    <script is:inline>
+      if (!window.__visited) {
+        window.__visited = true;
+        document.documentElement.classList.add("first-visit");
+      }
+    </script>
   </head>
 
   <body class={fadeOnly ? "fade-only" : undefined}>
@@ -94,6 +104,10 @@ const ogDescription = "Design Technologist, interaction engineer.";
           }
           node.parentNode.replaceChild(frag, node);
         });
+
+        // Only the first load animates, so skip the (reflow-heavy) line
+        // measurement on client-side navigations.
+        if (!document.documentElement.classList.contains("first-visit")) return;
 
         const words = bio.querySelectorAll(".bio-word");
         const BASE_DELAY = 0.4;
@@ -382,6 +396,9 @@ const ogDescription = "Design Technologist, interaction engineer.";
       // second independent fade-in. This makes the body instantly visible so
       // the snapshot captures real content and the transition looks correct.
       document.addEventListener("astro:after-swap", () => {
+        // After the first navigation, content stays static under the
+        // view-transition cross-fade (no replayed entrance animations).
+        document.documentElement.classList.remove("first-visit");
         document.body.style.transition = "none";
         document.body.classList.add("loaded");
         requestAnimationFrame(() => {

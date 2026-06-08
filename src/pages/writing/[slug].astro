@@ -32,7 +32,22 @@ function formatDate(dateStr: string) {
 >
   <header class="header">
     <a href="/writing" class="back-link animate-fade-in-up" aria-label="Go back">
-      <span class="back-arrow" aria-hidden="true">&#x21A9;</span>
+      <svg
+        class="back-arrow"
+        width="16"
+        height="16"
+        viewBox="0 0 20 20"
+        fill="none"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 10H4M4 10L9 5M4 10L9 15"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
       <span class="back-text">Back</span>
     </a>
   </header>
@@ -85,8 +100,9 @@ function formatDate(dateStr: string) {
   }
 
   .back-arrow {
-    font-size: 16px;
-    margin-bottom: -4px;
+    display: block;
+    flex-shrink: 0;
+    margin-top: -2px;
   }
 
   .back-text {

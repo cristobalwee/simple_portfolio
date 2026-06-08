@@ -711,6 +711,24 @@ img.project-swatch {
   animation: pageFadeIn 350ms cubic-bezier(0, 0, 0.2, 1) 250ms backwards;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .first-visit .animate-fade-in-up,
+  .first-visit .bio-word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body {
+    transition: none !important;
+  }
+}
+
 /* Animation Keyframes */
 @keyframes fadeInUp {
   from {
@@ -725,6 +743,10 @@ img.project-swatch {
 
 .bio-word {
   display: inline-block;
+}
+
+/* Entrance animation only on the first load (see .first-visit below) */
+.first-visit .bio-word {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s cubic-bezier(0, 0, 0.14, 1) forwards;
@@ -739,15 +761,24 @@ img.project-swatch {
   }
 }
 
-/* Animation Classes */
+/* Animation Classes
+   Default (client-side navigations): content is static and fully visible, so
+   the view-transition cross-fade is the only fade — a single, cheap composited
+   animation that stays smooth on mobile. */
 .animate-fade-in-up {
+  opacity: 1;
+  transform: none;
+}
+
+/* First (full) page load only: play the staggered entrance animation. */
+.first-visit .animate-fade-in-up {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s cubic-bezier(0, 0, 0.14, 1) forwards 0.2s;
 }
 
 /* Fade-only pages: animate opacity without the upward motion */
-.fade-only .animate-fade-in-up {
+.first-visit .fade-only .animate-fade-in-up {
   transform: none;
   animation-name: fadeIn;
 }
