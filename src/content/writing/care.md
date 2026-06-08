@@ -9,13 +9,13 @@ But you and I both already know that there is a huge variance in Claude's output
 
 There have been big leaps in this area already: highly skilled design engineers like [Emil Kowalski](https://emilkowal.ski/ui/agents-with-taste) and [Jakub Krehel](https://jakub.kr/writing/details-that-make-interfaces-feel-better) have translated their unmatched sense of taste into shareable skills, readily available for anyone with a machine and an LLM subscription. Design tools like Variant UI and Claude Design make crafting interfaces as accessible as ever, no design knowledge needed. But this now leads to the inevitable question: if a layman, with no software or product experience, vibe codes an entire production-level application leveraging all these tools and taste drivers to their full extent, can they attain something of quality? 
 
-![Jakub's interfaces skill already has almost 1k stars on Github](/jakub.webp)
+![Jakub's skill already has almost 1k stars on Github](/jakub.webp)
 
 I've been thinking about this question a lot recently (kind of hard to escape the dread of becoming obsolete with how good LLMs are now), but I keep finding that there has to be something else beyond taste – an additional filter that truly separates great applications from middling ones. And then I saw a [tweet](https://x.com/jipvandervelde/status/2062258773264408583?s=20) by Jip Vandervelde, one of the creators of [Grug](https://apps.apple.com/us/app/grug/id6751649802), on the heels of his app winning Apple's 2026 design award for delight and fun. One particular quote really stuck out to me:
 
 >"AI can write your code. It can help you move fast. It can make impossible things feel possible. But it cannot care. It cannot make your app memorable. It cannot make your app feel like it has a soul."
 
-Grug is as simple an app as they come, you could probably build it in the span of a few hours if you were intent on doing so. Even the design itself, the branding and art, can be imitated. But Grug has a soul, and – however intangible this is – it does not feel like I can recreate its intrinsic magic easily. It feels beautiful, it feels fun, it feels like its creators cared about what they were building. 
+Grug is as simple an app as they come, the creators themselves have said the code was written by Codex, prompted by designers. But Grug has a soul, and – however intangible this is – it does not feel like I can recreate its intrinsic magic easily. It feels beautiful, it feels fun, it feels like its creators cared about what they were building. 
 
 ![grug make beautiful app](/grug.webp)
 

@@ -31,7 +31,7 @@ function formatDate(dateStr: string) {
   fadeOnly
 >
   <header class="header">
-    <a href="/writing" class="back-link animate-fade-in-up" aria-label="Go back">
+    <a href="/" class="back-link animate-fade-in-up" aria-label="Back home">
       <svg
         class="back-arrow"
         width="16"
@@ -48,7 +48,7 @@ function formatDate(dateStr: string) {
           stroke-linecap="round"
           stroke-linejoin="round"></path>
       </svg>
-      <span class="back-text">Back</span>
+      <span class="back-text">Home</span>
     </a>
   </header>
 
@@ -193,16 +193,3 @@ function formatDate(dateStr: string) {
     text-align: center;
   }
 </style>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const back = document.querySelector(".back-link");
-    back?.addEventListener("click", (e) => {
-      // Go to the previous page if there is one, otherwise follow the href.
-      if (window.history.length > 1) {
-        e.preventDefault();
-        window.history.back();
-      }
-    });
-  });
-</script>
