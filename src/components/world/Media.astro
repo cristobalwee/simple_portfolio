@@ -1,0 +1,77 @@
+---
+import type { Island } from "../../data/islands";
+
+interface Props {
+  island: Island;
+  /** "island" on the map, "detail" in the case-study hero. */
+  variant: "island" | "detail";
+}
+
+const { island, variant } = Astro.props;
+const cls = `${variant}-media media--${island.kind}`;
+
+// The hero takes the island's aspect ratio, so the two boxes differ only in
+// scale and position — the morph has nothing to reconcile.
+const style =
+  variant === "detail" ? `aspect-ratio: ${island.w} / ${island.h}` : undefined;
+
+// The islands are the LCP candidates on the world route and the hero is the
+// LCP on a detail route — neither should be lazy.
+const loading = "eager" as const;
+---
+
+{/* The same markup renders in both places. `data-vt-media` is what the engine
+    hands the shared view-transition name to, so the browser has a single
+    element to morph from the map into the hero. */}
+<div class={cls} data-vt-media={island.slug} style={style}>
+  {
+    island.kind === "phones" &&
+      island.images.map((src, i) => (
+        <img
+          src={src}
+          alt=""
+          loading={loading}
+          decoding="async"
+          fetchpriority={i === 0 ? "high" : "auto"}
+        />
+      ))
+  }
+
+  {
+    island.kind === "browser" && (
+      <img
+        src={island.images[0]}
+        alt=""
+        loading={loading}
+        decoding="async"
+        fetchpriority="high"
+      />
+    )
+  }
+
+  {
+    island.kind === "art-box" && (
+      <div class="art art--box" aria-hidden="true">
+        <i class="b1" />
+        <i class="b2" />
+        <i class="b3" />
+        <i class="b4" />
+        <i class="b5" />
+        <i class="b6" />
+        <i class="ring" />
+        <i class="dot" />
+      </div>
+    )
+  }
+
+  {
+    island.kind === "art-bonno" && (
+      <div class="art art--bonno" aria-hidden="true">
+        <p>
+          You provide the liquor, we'll mix it — <em>pro bono.</em>
+        </p>
+        <div class="bar" />
+      </div>
+    )
+  }
+</div>

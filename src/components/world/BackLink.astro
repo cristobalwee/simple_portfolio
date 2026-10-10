@@ -1,0 +1,22 @@
+---
+interface Props {
+  href?: string;
+  label?: string;
+}
+
+// Defaults back to the world. The engine restores the camera from history on
+// arrival, so this lands the user exactly where they left the map.
+const { href = "/v2", label = "Back to the map" } = Astro.props;
+---
+
+<a class="btn" href={href}>
+  <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path
+      d="M16 10H4M4 10L9 5M4 10L9 15"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+  <span>{label}</span>
+</a>

@@ -1,0 +1,36 @@
+---
+import WorldLayout from "../../layouts/WorldLayout.astro";
+import BackLink from "../../components/world/BackLink.astro";
+---
+
+<WorldLayout
+  title="About — Cristobal Graña Samanez"
+  description="Product designer, design technologist and interaction engineer."
+  route="doc"
+>
+  <article class="doc">
+    <div class="doc-nav"><BackLink /></div>
+
+    <header class="doc-head">
+      <h1 class="doc-title">About</h1>
+      <p class="doc-tagline">
+        Product designer, design technologist, interaction engineer.
+      </p>
+    </header>
+
+    <div class="prose">
+      <p class="placeholder">
+        Placeholder — the about copy goes here. The route, the navigation and the
+        transitions are real.
+      </p>
+      <p>
+        Lorem ipsum. A few paragraphs on how I work, what I care about, and the
+        kinds of problems I want more of.
+      </p>
+      <h2>Now</h2>
+      <p>Lorem ipsum. What I'm building at the moment.</p>
+      <h2>Before</h2>
+      <p>Lorem ipsum. Where I've worked and what I shipped there.</p>
+    </div>
+  </article>
+</WorldLayout>

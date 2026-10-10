@@ -1,0 +1,41 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import WorldLayout from "../../../layouts/WorldLayout.astro";
+import BackLink from "../../../components/world/BackLink.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("writing");
+  return articles.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const article = (await getEntry("writing", Astro.params.slug!))!;
+const { Content } = await article.render();
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+---
+
+<WorldLayout
+  title={`${article.data.title} — Cristobal Graña Samanez`}
+  description={article.data.description}
+  route="doc"
+>
+  <article class="doc">
+    <div class="doc-nav">
+      <BackLink href="/v2/writing" label="Writing" />
+    </div>
+
+    <header class="doc-head">
+      <h1 class="doc-title">{article.data.title}</h1>
+      <p class="doc-tagline">
+        <time datetime={article.data.date}>{fmt(article.data.date)}</time>
+      </p>
+    </header>
+
+    <div class="prose"><Content /></div>
+  </article>
+</WorldLayout>

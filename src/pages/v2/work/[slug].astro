@@ -1,0 +1,60 @@
+---
+import WorldLayout from "../../../layouts/WorldLayout.astro";
+import Media from "../../../components/world/Media.astro";
+import BackLink from "../../../components/world/BackLink.astro";
+import { ISLANDS, islandBySlug } from "../../../data/islands";
+
+export function getStaticPaths() {
+  return ISLANDS.map((island) => ({ params: { slug: island.slug } }));
+}
+
+const island = islandBySlug(Astro.params.slug!)!;
+---
+
+<WorldLayout
+  title={`${island.title} — Cristobal Graña Samanez`}
+  description={island.tagline}
+  route="doc"
+  accent={island.color}
+>
+  <article class="doc">
+    <div class="doc-nav"><BackLink /></div>
+
+    <Media island={island} variant="detail" />
+
+    <header class="doc-head">
+      <p class="doc-eyebrow">{island.role}</p>
+      <h1 class="doc-title">{island.title}</h1>
+      <p class="doc-tagline">{island.tagline}</p>
+
+      <dl class="doc-meta">
+        <div><dt>Year</dt><dd>{island.year}</dd></div>
+        <div><dt>Role</dt><dd>{island.role}</dd></div>
+        <div><dt>Status</dt><dd>Case study in progress</dd></div>
+      </dl>
+    </header>
+
+    <div class="prose">
+      <p class="placeholder">
+        Placeholder — the case study body for <strong>{island.title}</strong> goes
+        here. The route, the shared-element morph from the map, browser history
+        and the metadata above are all real; only this copy is standing in.
+      </p>
+
+      <h2>The problem</h2>
+      <p>
+        Lorem ipsum. This section will cover the constraints going in, who it was
+        for, and what "done" was supposed to look like.
+      </p>
+
+      <h2>What I built</h2>
+      <p>
+        Lorem ipsum. Process, the interesting technical decisions, and the parts
+        that had to be thrown away before the thing worked.
+      </p>
+
+      <h2>Where it landed</h2>
+      <p>Lorem ipsum. Outcomes, numbers if there are any, and what I'd redo.</p>
+    </div>
+  </article>
+</WorldLayout>

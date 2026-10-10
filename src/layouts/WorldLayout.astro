@@ -1,0 +1,105 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/world.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** "world" locks the viewport; "doc" scrolls normally. */
+  route?: "world" | "doc";
+  /** Accent colour for the route, inherited by buttons, arrows and rules. */
+  accent?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  route = "doc",
+  accent = "#f0f0f0",
+  image = "/og.jpg",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="void">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Cristobal Graña Samanez" />
+    <link rel="canonical" href={canonical} />
+    <link
+      rel="preload"
+      href="/HelveticaNeueLight.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <ClientRouter />
+  </head>
+
+  <body data-route={route} style={`--accent: ${accent}`}>
+    {/* The one piece of chrome shared by every route — it keeps its
+        view-transition-name across navigations, so it never blinks. */}
+    <div class="hud-menu">
+      <button
+        class="btn"
+        type="button"
+        data-menu-button
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+          <g fill="currentColor">
+            <rect x="0" y="0" width="4" height="4" rx="1"></rect>
+            <rect x="10" y="0" width="4" height="4" rx="1"></rect>
+            <rect x="0" y="10" width="4" height="4" rx="1"></rect>
+            <rect x="10" y="10" width="4" height="4" rx="1"></rect>
+            <rect x="5" y="5" width="4" height="4" rx="1"></rect>
+          </g>
+        </svg>
+        <span>menu</span>
+      </button>
+
+      <nav class="menu-panel" data-menu-panel data-open="false">
+        <a href="/v2" data-hint="world">Index</a>
+        <a href="/v2/about" data-hint="who">About</a>
+        <a href="/v2/writing" data-hint="words">Writing</a>
+        <hr />
+        <a href="https://x.com/cristo_grana" target="_blank" rel="noreferrer">
+          Twitter
+        </a>
+        <a
+          href="https://github.com/cristobalwee"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+        <a href="mailto:cristobal.wee@gmail.com">Email</a>
+      </nav>
+    </div>
+
+    <slot />
+
+    <script>
+      import "../scripts/world";
+    </script>
+  </body>
+</html>

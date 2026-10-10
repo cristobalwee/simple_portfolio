@@ -1,0 +1,105 @@
+---
+import WorldLayout from "../../layouts/WorldLayout.astro";
+import Media from "../../components/world/Media.astro";
+import { ISLANDS } from "../../data/islands";
+
+// Parallax depth per island — the further "back" an island reads, the more it
+// lags behind the camera. Keyed off the island's distance from the origin so
+// the far corners of the map drift a touch more than the near ones.
+const depth = (i: (typeof ISLANDS)[number]) =>
+  (Math.hypot(i.x, i.y) / 1400) * 0.9 + 0.35;
+---
+
+<WorldLayout
+  title="Cristobal Graña Samanez — Product designer, design technologist"
+  description="Product designer, design technologist and interaction engineer. Explore the work."
+  route="world"
+>
+  <main class="stage">
+    <div class="world">
+      <div class="lockup">
+        <p class="lockup-eyebrow">(scroll / click)</p>
+        <h1 class="lockup-title">CRISTOBAL<br />GRAÑA SAMANEZ</h1>
+        <p class="lockup-subtitle">
+          Product designer, design technologist,<br />interaction engineer
+        </p>
+        <div class="lockup-actions">
+          <a class="btn" href="/v2/about">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+              <g fill="currentColor">
+                <rect x="0" y="0" width="4" height="4" rx="1"></rect>
+                <rect x="10" y="0" width="4" height="4" rx="1"></rect>
+                <rect x="0" y="10" width="4" height="4" rx="1"></rect>
+                <rect x="10" y="10" width="4" height="4" rx="1"></rect>
+                <rect x="5" y="5" width="4" height="4" rx="1"></rect>
+              </g>
+            </svg>
+            <span>about</span>
+          </a>
+          <a class="btn" href="/v2/writing">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+              <g fill="currentColor">
+                <rect x="0" y="0" width="14" height="3" rx="1"></rect>
+                <rect x="0" y="5.5" width="14" height="3" rx="1"></rect>
+                <rect x="0" y="11" width="9" height="3" rx="1"></rect>
+              </g>
+            </svg>
+            <span>writing</span>
+          </a>
+        </div>
+      </div>
+
+      {
+        ISLANDS.map((island) => (
+          <a
+            class="island"
+            href={`/v2/work/${island.slug}`}
+            data-slug={island.slug}
+            aria-label={`${island.title} — ${island.tagline}`}
+            style={`--ix: ${island.x}; --iy: ${island.y}; --iw: ${island.w}; --ih: ${island.h}; --d: ${depth(island).toFixed(2)}; --accent: ${island.color}`}
+          >
+            <Media island={island} variant="island" />
+          </a>
+        ))
+      }
+    </div>
+  </main>
+
+  {/* Waypoints live outside the world: they are fixed to the viewport and the
+      engine positions them each frame from the camera, edge-clamping them when
+      their island is off-screen and docking them on top of it once it isn't. */}
+  <div class="waypoints">
+    {
+      ISLANDS.map((island) => (
+        <button
+          class="waypoint"
+          type="button"
+          style={`--accent: ${island.color}`}
+          aria-label={`Fly to ${island.title}`}
+        >
+          <span class="waypoint-pill">{island.label}</span>
+          <span class="waypoint-arrow" aria-hidden="true">
+            <svg viewBox="0 0 10 10" fill="currentColor">
+              <path d="M9.2 5 0.8 9.6 2.4 5 0.8 0.4Z" />
+            </svg>
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="hud">
+    <p class="hud-coords">x: 0.0 y: 0.0</p>
+
+    <div class="minimap" aria-label="Map of the world" role="img">
+      <div class="minimap-inner">
+        {
+          ISLANDS.map((island) => (
+            <span class="mm-island" style={`background: ${island.color}`} />
+          ))
+        }
+        <span class="mm-view"></span>
+      </div>
+    </div>
+  </div>
+</WorldLayout>
