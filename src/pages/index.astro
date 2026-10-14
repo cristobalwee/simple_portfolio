@@ -50,13 +50,19 @@ const heroImages = orderedFiles.map((file: string) => {
     <section class="about">
       <p id="bio">
         I'm a Peruvian-born designer and engineer with a passion for craft and enjoyability. I like to deliver products with a high level of <a class="link" href="/writing/care">care</a> and have a strong interest in solving design problems with a technical mindset.<br /><br />
-        I'm currently leading product and design at
+        I'm currently a Staff Design Engineer at
+        <a
+          href="https://vetcove.com/"
+          class="link"
+          target="_blank"
+          rel="noreferrer">Vetcove</a
+        >, leading the engineering organization on all things UI, design systems, and polish. I previously led product and design at
         <a
           href="https://www.centaurihs.com/"
           class="link"
           target="_blank"
           rel="noreferrer">Centauri</a
-        >, building interfaces that simplify the healthcare data experience for patients, providers, and payors. Previously, I was a Lead UX Engineer on the Design Foundations team at
+        >, and was a Lead UX Engineer on the Design Foundations team at
         <a
           href="https://www.godaddy.com/"
           class="link"
@@ -75,6 +81,20 @@ const heroImages = orderedFiles.map((file: string) => {
       <div class="projects-table">
         <ProjectItem
           delayClass="animate-fade-in-up animate-delay-5"
+          swatch="/sidebranch.png"
+          swatchAlt="Sidebranch logo"
+          title="Sidebranch"
+          subtitle="Chrome Extension"
+          year="2026"
+          description={`A chrome extension and local sidecar daemon for easily switching between git worktrees while your app is running locally. Launched at <a href="https://www.producthunt.com/products/sidebranch" target="_blank" rel="noreferrer">#10 on Product Hunt</a>.`}
+          images={[
+            { src: "/sidebranch-1.webp", alt: "Sidebranch homescreen", width: 945, height: 720 },
+            { src: "/sidebranch-2.webp", alt: "Sidebranch side-by-side view", width: 945, height: 720 },
+          ]}
+          seeMoreUrl="https://sidebranch.dev/"
+        />
+        <ProjectItem
+          delayClass="animate-fade-in-up animate-delay-6"
           swatch="/trellis.png"
           swatchAlt="Trellis logo"
           title="Trellis"
@@ -90,7 +110,7 @@ const heroImages = orderedFiles.map((file: string) => {
           seeMoreUrl="https://trellisdesign.io/"
         />
         <ProjectItem
-          delayClass="animate-fade-in-up animate-delay-6"
+          delayClass="animate-fade-in-up animate-delay-7"
           swatch="/tastify.png"
           swatchAlt="Tastify logo"
           title="Tastify"
@@ -104,7 +124,7 @@ const heroImages = orderedFiles.map((file: string) => {
           seeMoreUrl="https://tastify.dev/"
         />
         <ProjectItem
-          delayClass="animate-fade-in-up animate-delay-7"
+          delayClass="animate-fade-in-up animate-delay-8"
           swatch="/ray.png"
           swatchAlt="Ray logo"
           title="Ray"
@@ -123,10 +143,10 @@ const heroImages = orderedFiles.map((file: string) => {
     </section>
 
     <section class="writing">
-      <h2 class="section-title animate-fade-in-up animate-delay-8">Writing</h2>
+      <h2 class="section-title animate-fade-in-up animate-delay-9">Writing</h2>
       <div class="today-grid">
         <WritingItem
-          delayClass="animate-fade-in-up animate-delay-9"
+          delayClass="animate-fade-in-up animate-delay-10"
           href="/writing/care"
           date="6/7/26"
           title="Somebody still has to care"
@@ -136,24 +156,24 @@ const heroImages = orderedFiles.map((file: string) => {
     </section>
 
     <section class="today">
-      <h2 class="section-title animate-fade-in-up animate-delay-10">Other work</h2>
+      <h2 class="section-title animate-fade-in-up animate-delay-11">Other work</h2>
       <div class="today-grid">
         <TodayItem
-          delayClass="animate-fade-in-up animate-delay-11"
+          delayClass="animate-fade-in-up animate-delay-12"
           href="https://apps.apple.com/us/app/beat-the-box-card-game/id6746703360?platform=iphone"
           date="2025"
           title="Beat the Box"
           description="iOS App"
         />
         <TodayItem
-          delayClass="animate-fade-in-up animate-delay-12"
+          delayClass="animate-fade-in-up animate-delay-13"
           href="https://bonnobartending.com"
           date="2024"
           title="Bonno Bartending"
           description="Website"
         />
         <TodayItem
-          delayClass="animate-fade-in-up animate-delay-13"
+          delayClass="animate-fade-in-up animate-delay-14"
           href="https://apps.apple.com/us/app/perfect-roaster/id6664058919?platform=iphone"
           date="2024"
           title="Perfect Roaster"

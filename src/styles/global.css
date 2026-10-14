@@ -209,6 +209,18 @@ body.loaded {
   padding-top: 4px;
 }
 
+.project-description a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: #838383;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.project-description a:hover {
+  text-decoration-color: #ffffff;
+}
+
 /* Carousel */
 .project-carousel {
   position: relative;

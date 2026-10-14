@@ -40,7 +40,7 @@ const {
   </div>
   <div class="project-expand">
     <div class="project-expand-inner">
-      <p class="project-description">{description}</p>
+      <p class="project-description" set:html={description} />
       <div class="project-carousel">
         <div class="project-carousel-track">
           {images.map((img) => (
